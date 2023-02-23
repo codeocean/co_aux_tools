@@ -7,12 +7,12 @@ try:
 except ImportError as e:
     print(
         f"ImportError: {e}\n"
-        + f"Error importing LOGGER: did you add '/opt/co_aux_tools' to "
+        + "Error importing LOGGER: did you add '/opt/co_aux_tools' to "
         + "PYTHONPATH and PATH ?"
     )
 
 
-def print_log_msg(msg = None, level = "WARNING"):
+def print_log_msg(msg=None, level="WARNING"):
     level = level.upper()
     if level == "DEBUG":
         return LOGGER.debug(msg)
@@ -26,9 +26,9 @@ def print_log_msg(msg = None, level = "WARNING"):
         return LOGGER.critical(msg)
     else:
         raise Exception(
-            f"{logger_name} logging level is not one of [DEBUG, INFO, "
-            + "WARNING, ERROR, CRITICAL]"
+            "logging level is not one of [DEBUG, INFO, " + "WARNING, ERROR, CRITICAL]"
         )
+
 
 if len(sys.argv) > 2:
     print(print_log_msg(sys.argv[1], sys.argv[2]))

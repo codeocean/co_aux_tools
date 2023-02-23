@@ -2,7 +2,7 @@
 import logging
 import os
 
-LOGGER_DIR_PATH = "../results/co_logs" # path to log directory
+LOGGER_DIR_PATH = "../results/co_logs"  # path to log directory
 LOGGER_FILE_NAME = "co_log"  # name for the log file in ../results/co_logs
 ENV_LEVEL = os.environ.get("CO_LOG_LEVEL").upper()
 DEFAULT_LEVEL = "WARNING" if not ENV_LEVEL else ENV_LEVEL
@@ -30,7 +30,7 @@ def get_logger_for_string(*, logger_name: str, level: str):
     problems.
     INFO: Confirmation that things are working as expected.
     WARNING: An indication that something unexpected happened, or indicative of
-    some problem in the near future (e.g. ‘disk space low’). The software is
+    some problem in the near future (e.g. 'disk space low'). The software is
     still working as expected.
     ERROR: Due to a more serious problem, the software has not been able to
     perform some function.

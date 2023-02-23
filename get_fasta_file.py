@@ -7,10 +7,12 @@ import sys
 
 
 logger = logging.getLogger(__name__)
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+logging.basicConfig(
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
+)
 
 FASTA_EXTENSIONS = [".fa", ".fna", ".ffn", ".frn", ".fasta", ".faa"]
-ALL_SUFFIXES = FASTA_EXTENSIONS + ['.gz', '.bgz']
+ALL_SUFFIXES = FASTA_EXTENSIONS + [".gz", ".bgz"]
 
 
 def find_extension(input_file: Path):
@@ -39,7 +41,9 @@ def find_fasta_file(input_path: Path):
         if fasta_file:
             matched_files.append(fasta_file)
     if len(matched_files) > 1:
-        logger.warning(f"More than one fasta file matched! Will only return {matched_files[0]}")
+        logger.warning(
+            f"More than one fasta file matched! Will only return {matched_files[0]}"
+        )
         return matched_files[0]
     elif len(matched_files) == 1:
         logger.info(f"Matched {matched_files[0]}")
@@ -50,8 +54,12 @@ def find_fasta_file(input_path: Path):
 
 
 def main(argv=None):
-    parser = argparse.ArgumentParser(description="Find fasta files recursively from input directory")
-    parser.add_argument("--input_dir", help="Input path to search", default='../data', type=Path)
+    parser = argparse.ArgumentParser(
+        description="Find fasta files recursively from input directory"
+    )
+    parser.add_argument(
+        "--input_dir", help="Input path to search", default="../data", type=Path
+    )
 
     if argv:
         args = parser.parse_args(argv)
@@ -71,22 +79,27 @@ def main(argv=None):
 if __name__ == "__main__":
     sys.exit(main(sys.argv[1:]))
 
+
 def test_generic_fasta():
     input_file = Path("/data/test.fa")
     assert str(find_extension(input_file)) == "/data/test.fa"
+
 
 def test_generic_gzip():
     input_file = Path("/data/test.fa.gz")
     assert str(find_extension(input_file)) == "/data/test.fa.gz"
 
+
 def test_faindex():
     input_file = Path("/data/test.fa.gz.fai")
     assert str(find_extension(input_file)) == ""
+
 
 def test_nucleic_acid_fasta():
     input_file = Path("/data/test.fna")
     assert str(find_extension(input_file)) == "/data/test.fna"
 
+
 def test_amino_acid_fasta():
-        input_file = Path("/data/test.faa.gz")
-        assert str(find_extension(input_file)) == "/data/test.faa.gz"
+    input_file = Path("/data/test.faa.gz")
+    assert str(find_extension(input_file)) == "/data/test.faa.gz"
