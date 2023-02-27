@@ -6,7 +6,7 @@ co_cpus = os.getenv("CO_CPUS")
 aws_batch_job_id = os.getenv("AWS_BATCH_JOB_ID")
 
 
-def get_cpu_limit():
+def get_cpu_limit(co_cpus = co_cpus, aws_batch_job_id = aws_batch_job_id):
     if co_cpus:
         return co_cpus
     if aws_batch_job_id:
@@ -20,4 +20,5 @@ def get_cpu_limit():
     return cpu_count() if container_cpus < 1 else container_cpus
 
 
-print(get_cpu_limit())
+if __name__ == "__main__":
+    print(get_cpu_limit())
