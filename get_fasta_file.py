@@ -3,6 +3,7 @@ import argparse
 from glob import glob
 import logging
 from pathlib import Path
+import re
 import sys
 
 
@@ -16,7 +17,9 @@ ALL_SUFFIXES = FASTA_EXTENSIONS + [".gz", ".bgz"]
 
 
 def find_extension(input_file: Path):
-    suffixes = input_file.suffixes
+    # Only consider path after first .f
+    input_file_ext = re.sub(r".*\.f", r"\.f", str(input_file))
+    suffixes = Path(input_file_ext).suffixes
     logger.debug(f"Suffixes {suffixes}")
     mismatch_suffix = set(suffixes) - set(ALL_SUFFIXES)
     if len(mismatch_suffix):  # check that all suffixes are allowed
@@ -99,7 +102,10 @@ def test_nucleic_acid_fasta():
     input_file = Path("/data/test.fna")
     assert str(find_extension(input_file)) == "/data/test.fna"
 
-
 def test_amino_acid_fasta():
     input_file = Path("/data/test.faa.gz")
     assert str(find_extension(input_file)) == "/data/test.faa.gz"
+
+    def test_period_in_fasta():
+        input_file = Path("/data/ENSG0001.1.fa.gz")
+        assert str(find_extension(input_file)) == "/data/ENSG0001.1.fa.gz"
