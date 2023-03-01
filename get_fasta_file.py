@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 import argparse
-from glob import glob
 import logging
-from pathlib import Path
 import re
 import sys
-
+from glob import glob
+from pathlib import Path
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(
@@ -101,6 +100,7 @@ def test_faindex():
 def test_nucleic_acid_fasta():
     input_file = Path("/data/test.fna")
     assert str(find_extension(input_file)) == "/data/test.fna"
+
 
 def test_amino_acid_fasta():
     input_file = Path("/data/test.faa.gz")
