@@ -106,6 +106,7 @@ def test_amino_acid_fasta():
     input_file = Path("/data/test.faa.gz")
     assert str(find_extension(input_file)) == "/data/test.faa.gz"
 
-    def test_period_in_fasta():
-        input_file = Path("/data/ENSG0001.1.fa.gz")
-        assert str(find_extension(input_file)) == "/data/ENSG0001.1.fa.gz"
+
+def test_period_in_fasta():
+    input_file = Path("/data/ENSG0001.1.fa.gz")
+    assert str(find_extension(input_file)) == "/data/ENSG0001.1.fa.gz"
