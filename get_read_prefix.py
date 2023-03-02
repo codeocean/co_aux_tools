@@ -18,8 +18,8 @@ def get_prefix(filename: str, split_position=-1):
     if "_" in filename and int(split_position):
         prefix_list = filename.split("_")[: int(split_position)]
         return "_".join(prefix_list)
-    else:
-        return filename.split(".")[0]
+
+    return filename.split(".")[0]
 
 
 if __name__ == "__main__":
@@ -27,4 +27,3 @@ if __name__ == "__main__":
         print(get_prefix(sys.argv[1], sys.argv[2]))
     else:
         print(get_prefix(sys.argv[1]))
-

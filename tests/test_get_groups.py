@@ -20,8 +20,8 @@ def mocker_samplesheet(mocker):
 def test_get_groups(mocker_samplesheet):
     groups = "case1,case2,control1,control2"
     assert get_groups("fakefile") == groups
-    
-    
+
+
 def test_get_groups_fail(mocker_samplesheet):
     groups = "notcase1,notcase2,notcontrol1,notcontrol2"
     assert not get_groups("fakefile") == groups
