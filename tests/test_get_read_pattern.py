@@ -1,5 +1,3 @@
-import pytest
-
 from src.codeoceanauxtools.get_read_pattern import get_read_pattern
 
 

@@ -1,5 +1,3 @@
-import pytest
-
 from src.codeoceanauxtools.get_fasta_file import (find_extension,
                                                   find_fasta_file, main)
 
