@@ -1,15 +1,7 @@
 #!/usr/bin/env python
 import sys
 
-import get_read_pattern
-
-
-def get_rev_file(fwd_file):
-    return fwd_file.replace(
-        get_read_pattern.get_read_pattern(fwd_file, "1"),
-        get_read_pattern.get_read_pattern(fwd_file, "2"),
-    )
-
+import utils.util
 
 if __name__ == "__main__":
-    print(get_rev_file(sys.argv[1]))
+    print(utils.util.get_rev_file(sys.argv[1]))

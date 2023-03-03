@@ -1,6 +1,6 @@
 import os
 
-from src.codeoceanauxtools.get_pipeline_confirm import is_pipeline
+from src.codeoceanauxtools.utils.util import is_pipeline
 
 
 # Tests for is_pipeline

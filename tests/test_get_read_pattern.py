@@ -1,4 +1,4 @@
-from src.codeoceanauxtools.get_read_pattern import get_read_pattern
+from src.codeoceanauxtools.utils.util import get_read_pattern
 
 
 # Tests for get_read_pattern
