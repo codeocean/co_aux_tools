@@ -1,7 +1,7 @@
 from multiprocessing import cpu_count
 import pytest
 
-from ..get_cpu_count import get_cpu_limit
+from src.codeoceanauxtools.get_cpu_count import get_cpu_limit
 
 
 # Tests for get_cpu_count

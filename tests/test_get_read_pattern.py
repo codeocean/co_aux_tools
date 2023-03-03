@@ -1,6 +1,6 @@
 import pytest
 
-from ..get_read_pattern import get_read_pattern
+from src.codeoceanauxtools.get_read_pattern import get_read_pattern
 
 
 # Tests for get_read_pattern

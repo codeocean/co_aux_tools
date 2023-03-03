@@ -1,6 +1,6 @@
 import pytest
 
-from ..get_read_prefix import get_prefix
+from src.codeoceanauxtools.get_read_prefix import get_prefix
 
 
 # Tests for get_prefix

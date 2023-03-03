@@ -1,7 +1,7 @@
 import pytest
 import subprocess
 
-from ..get_dir_contents import get_dir_contents
+from src.codeoceanauxtools.get_dir_contents import get_dir_contents
 
 
 # Tests for get_dir_contents

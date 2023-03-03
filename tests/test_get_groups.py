@@ -1,11 +1,11 @@
 import pytest
 
-from ..get_groups import get_groups
+from src.codeoceanauxtools.get_groups import get_groups
 
 
 @pytest.fixture
 def mocker_samplesheet(mocker):
-    # Read a mocked /etc/release file
+    # Read a mocked file
     mocked_sample_sheet = mocker.mock_open(
         read_data="case1,SRR10388935_R1.fastq.gz,SRR10388935_R2.fastq.gz\ncase1,SRR10388936_R1.fastq.gz,"
         + "SRR10388936_R2.fastq.gz\ncase2,SRR10388937_R1.fastq.gz,SRR10388937_R2.fastq.gz\ncase2,"

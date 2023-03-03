@@ -1,6 +1,6 @@
 import pytest
 
-from ..get_read_direction import get_read_direction
+from src.codeoceanauxtools.get_read_direction import get_read_direction
 
 
 # Tests for get_read_direction
