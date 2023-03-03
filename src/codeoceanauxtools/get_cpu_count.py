@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-from multiprocessing import cpu_count
 import os
+from multiprocessing import cpu_count
 
 co_cpus = os.getenv("CO_CPUS")
 aws_batch_job_id = os.getenv("AWS_BATCH_JOB_ID")

@@ -1,10 +1,9 @@
 #!/usr/bin/env python
 import argparse
-from glob import glob
 import logging
-from pathlib import Path
 import sys
-
+from glob import glob
+from pathlib import Path
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
-from pathlib import Path
 import re
 import sys
+from pathlib import Path
 
 
 def get_prefix(filename: str, split_position=-1):
