@@ -3,14 +3,18 @@ import sys
 
 import utils.util
 
-if __name__ == "__main__":
+
+def main():
     if len(sys.argv) > 1:
-        print(
+        return (
             f"*** These are the current files in the {sys.argv[1]} directory\n"
             + f"{utils.util.get_dir_contents(sys.argv[1])}"
         )
-    else:
-        print(
-            "*** These are the current files in the ../data directory\n"
-            + f"{utils.util.get_dir_contents()}"
-        )
+    return (
+        "*** These are the current files in the ../data directory\n"
+        + f"{utils.util.get_dir_contents()}"
+    )
+
+
+if __name__ == "__main__":
+    print(main())

@@ -3,8 +3,12 @@ import sys
 
 import utils.util
 
-if __name__ == "__main__":
+
+def main():
     if len(sys.argv) > 1:
-        print(utils.util.get_groups(sys.argv[1]))
-    else:
-        print(utils.util.get_groups())
+        return utils.util.get_groups(sys.argv[1])
+    return utils.util.get_groups()
+
+
+if __name__ == "__main__":
+    print(main())

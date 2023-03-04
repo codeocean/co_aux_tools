@@ -22,12 +22,12 @@ def get_cpu_limit(co_cpus = co_cpus, aws_batch_job_id = aws_batch_job_id):
     return cpu_count() if container_cpus < 1 else container_cpus
 
 
-def get_dir_contents(dir="../data"):
+def get_dir_contents(dir: str = "../data"):
     cmd = ["find", "-L", dir]
     return subprocess.check_output(cmd).decode("utf-8").strip()
 
 
-def get_groups(filename="sample_sheet.csv"):
+def get_groups(filename: str = "sample_sheet.csv"):
     filepath = (
         subprocess.check_output(["find", "../data", "-name", filename])
         .decode("utf-8")
@@ -47,14 +47,14 @@ def is_pipeline():
     return 1 if bool(os.getenv("AWS_BATCH_JOB_ID")) else 0
 
 
-def get_read_direction(filepath):
+def get_read_direction(filepath: str):
     filename = filepath.split("/")[-1]
     if "_" not in filename:
         return 0
     return "1" if "1" in filename.split("_")[-1].split(".")[0] else "2"
 
 
-def get_read_pattern(filename, direction="1"):
+def get_read_pattern(filename: str, direction: str = "1"):
     if "_" not in filename and "/" in filename:
         return filename.split("/")[-1]
     direction_complement = "2" if direction == "1" else "1"
@@ -66,7 +66,7 @@ def get_read_pattern(filename, direction="1"):
     )
 
 
-def get_prefix(filename: str, split_position=-1):
+def get_prefix(filename: str, split_position: str = "-1"):
     filename = Path(filename).name
     # illumina read files use a specific format, and sometimes allow underscores in the prefix
     # SampleName_S1_L001_R1_001.fastq.gz for lane 1
@@ -84,9 +84,8 @@ def get_prefix(filename: str, split_position=-1):
     return filename.split(".")[0]
 
 
-def get_rev_file(fwd_file):
+def get_rev_file(fwd_file: str):
     return fwd_file.replace(
         get_read_pattern(fwd_file, "1"),
         get_read_pattern(fwd_file, "2"),
     )
-

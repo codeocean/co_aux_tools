@@ -30,7 +30,13 @@ def print_log_msg(msg=None, level="WARNING"):
         )
 
 
-if len(sys.argv) > 2:
-    print(print_log_msg(sys.argv[1], sys.argv[2]))
-else:
-    print(print_log_msg(sys.argv[1]))
+def main():
+    if len(sys.argv) == 1:
+        sys.exit("You failed to provide a log message")
+    elif len(sys.argv) == 2:
+        return print_log_msg(sys.argv[1])
+    return print_log_msg(sys.argv[1], sys.argv[2])
+
+
+if __name__ == "__main__":
+    print(main())

@@ -7,7 +7,3 @@ from src.codeoceanauxtools.get_fasta_file import (find_extension,
 
 # Tests for find_fasta_file
 # TODO
-
-
-# Tests for main
-# TODO

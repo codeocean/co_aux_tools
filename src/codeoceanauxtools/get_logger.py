@@ -1,11 +1,10 @@
-#!/usr/bin/env python
 import logging
 import os
 
 LOGGER_DIR_PATH = "../results/co_logs"  # path to log directory
 LOGGER_FILE_NAME = "co_log"  # name for the log file in ../results/co_logs
-ENV_LEVEL = os.environ.get("CO_LOG_LEVEL").upper()
-DEFAULT_LEVEL = "WARNING" if not ENV_LEVEL else ENV_LEVEL
+ENV_LEVEL = os.environ.get("CO_LOG_LEVEL")
+DEFAULT_LEVEL = "WARNING" if not ENV_LEVEL else ENV_LEVEL.upper()
 
 """
 Benefit to this logger is that it adds to each log entry a timestamp,
