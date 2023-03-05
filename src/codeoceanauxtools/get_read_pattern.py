@@ -1,10 +1,14 @@
 #!/usr/bin/env python
+import logging
 import sys
 
 import utils.util
 
+log = logging.getLogger(__name__)
+
 
 def main():
+    log.debug(f"args: {sys.argv}")
     if len(sys.argv) == 1:
         sys.exit("You failed to provide a filename and direction")
     elif len(sys.argv) == 2:

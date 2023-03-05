@@ -1,12 +1,16 @@
 #!/usr/bin/env python
+import logging
 import re
 import sys
 from pathlib import Path
 
 import utils.util
 
+log = logging.getLogger(__name__)
+
 
 def main():
+    log.debug(f"args: {sys.argv}")
     if len(sys.argv) == 1:
         sys.exit("You failed to provide a filename")
     elif len(sys.argv) == 2:
