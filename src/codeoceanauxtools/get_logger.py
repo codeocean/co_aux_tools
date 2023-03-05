@@ -87,7 +87,7 @@ def generate_logger(
     file_handle = logging.FileHandler(f"{LOGGER_DIR_PATH}/{name}.log")
     file_handle.setLevel(logging_level)
     # create formatter and add it to the handlers
-    log_format = logging.Formatter(format_string)
+    log_format = logging.Formatter(format_string, "%Y-%m-%d %H:%M:%S")
     file_handle.setFormatter(log_format)
 
     logger.addHandler(file_handle)
