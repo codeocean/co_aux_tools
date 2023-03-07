@@ -2,13 +2,13 @@
 import sys
 
 from get_logger import LOGGER
-import util
+import co_aux_utils
 
 
 def main(argv=None):
     if len(argv) == 1:
         sys.exit("You failed to provide a file name")
-    return util.get_read_direction(argv[1])
+    return co_aux_utils.get_read_direction(argv[1])
 
 
 if __name__ == "__main__":

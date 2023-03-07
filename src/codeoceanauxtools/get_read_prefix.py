@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 
 from get_logger import LOGGER
-import util
+import co_aux_utils
 
 
 def main(argv=None):
@@ -12,8 +12,8 @@ def main(argv=None):
         LOGGER.error("You failed to provide a filename")
         sys.exit("You failed to provide a filename")
     elif len(argv) == 2:
-        return util.get_prefix(argv[1])
-    return util.get_prefix(argv[1], argv[2])
+        return co_aux_utils.get_prefix(argv[1])
+    return co_aux_utils.get_prefix(argv[1], argv[2])
 
 
 if __name__ == "__main__":
