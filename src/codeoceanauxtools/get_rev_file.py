@@ -7,12 +7,13 @@ import utils.util
 log = logging.getLogger(__name__)
 
 
-def main():
-    if len(sys.argv) == 1:
+def main(argv=None):
+    if len(argv) == 1:
+        log.error("You failed to provide a filename")
         sys.exit("You failed to provide a filename")
-    log.debug(f"args: {sys.argv}")
-    return utils.util.get_rev_file(sys.argv[1])
+    return utils.util.get_rev_file(argv[1])
 
 
 if __name__ == "__main__":
-    print(main())
+    log.debug(f"args: {sys.argv}")
+    print(main(sys.argv))
