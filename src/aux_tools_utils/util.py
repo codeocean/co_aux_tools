@@ -69,7 +69,9 @@ def get_groups(filename: str = "sample_sheet.csv"):
             line = line.strip()
             line_group = line.split(",")[0]
             groups_set.add(line_group)
-        return ",".join(sorted(list(groups_set)))
+        groups = sorted(list(groups_set))
+        LOGGER.debug(f"Returning the following groups from sample sheet: {groups}")
+        return ",".join(groups)
 
 
 def is_pipeline():
@@ -80,12 +82,20 @@ def get_read_direction(filepath: str):
     filename = filepath.split("/")[-1]
     LOGGER.debug(f"filename: {filename}")
     if "_" not in filename:
+        LOGGER.warning(
+            f"You might be trying to use a single end reads file as a paired end reads"
+            + "file. Check your input"
+        )
         return 0
     return "1" if "1" in filename.split("_")[-1].split(".")[0] else "2"
 
 
 def get_read_pattern(filename: str, direction: str = "1"):
     if "_" not in filename and "/" in filename:
+        LOGGER.warning(
+            f"{filename} might be a single end reads file. The pattern being returned"
+            + "is the entire filename"
+        )
         return filename.split("/")[-1]
     direction_complement = "2" if direction == "1" else "1"
     pattern = filename.split("_")[-1]
@@ -119,7 +129,8 @@ def get_prefix(filename: str, split_position: str = "-1"):
 
 def get_rev_file(fwd_file: str):
     LOGGER.debug(
-        f"fwd_file: {fwd_file}\nWill replace {get_read_pattern(fwd_file, '1')} with {get_read_pattern(fwd_file, '2')}"
+        f"fwd_file: {fwd_file}\nWill replace {get_read_pattern(fwd_file, '1')}"
+        + f"with {get_read_pattern(fwd_file, '2')}"
     )
     return fwd_file.replace(
         get_read_pattern(fwd_file, "1"),
