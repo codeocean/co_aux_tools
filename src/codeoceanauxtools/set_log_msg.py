@@ -26,17 +26,18 @@ def print_log_msg(msg=None, level="WARNING"):
         return LOGGER.critical(msg)
     else:
         raise Exception(
-            "logging level is not one of [DEBUG, INFO, " + "WARNING, ERROR, CRITICAL]"
+            "logging level is not one of [DEBUG, INFO, WARNING, ERROR, CRITICAL]"
         )
 
 
-def main():
-    if len(sys.argv) == 1:
+def main(argv=None):
+    if len(argv) == 1:
         sys.exit("You failed to provide a log message")
-    elif len(sys.argv) == 2:
-        return print_log_msg(sys.argv[1])
-    return print_log_msg(sys.argv[1], sys.argv[2])
+    elif len(argv) == 2:
+        return print_log_msg(argv[1])
+    return print_log_msg(argv[1], argv[2])
 
 
 if __name__ == "__main__":
-    print(main())
+    log.debug(f"args: {sys.argv}")
+    print(main(sys.argv))
