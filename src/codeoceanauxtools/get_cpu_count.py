@@ -1,9 +1,9 @@
 #!/usr/bin/env python
-import utils.util
+import aux_tools_utils.util
 
 
 def main():
-    return utils.util.get_cpu_limit()
+    return aux_tools_utils.util.get_cpu_limit()
 
 
 if __name__ == "__main__":

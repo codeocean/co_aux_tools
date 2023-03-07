@@ -2,14 +2,14 @@
 import sys
 
 from get_logger import LOGGER
-import utils.util
+import aux_tools_utils.util
 
 
 def main(argv=None):
     if len(argv) == 1:
         LOGGER.error("You failed to provide a filename")
         sys.exit("You failed to provide a filename")
-    return utils.util.get_rev_file(argv[1])
+    return aux_tools_utils.util.get_rev_file(argv[1])
 
 
 if __name__ == "__main__":

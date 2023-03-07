@@ -1,9 +1,9 @@
 #!/usr/bin/env python
-import utils.util
+import aux_tools_utils.util
 
 
 def main():
-    return utils.util.is_pipeline()
+    return aux_tools_utils.util.is_pipeline()
 
 
 if __name__ == "__main__":
