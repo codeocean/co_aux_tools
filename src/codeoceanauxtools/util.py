@@ -4,7 +4,7 @@ import subprocess
 from multiprocessing import cpu_count
 from pathlib import Path
 
-from codeoceanauxtools.get_logger import LOGGER
+from get_logger import LOGGER
 
 co_cpus = os.getenv("CO_CPUS")
 aws_batch_job_id = os.getenv("AWS_BATCH_JOB_ID")
@@ -84,7 +84,7 @@ def get_read_direction(filepath: str):
     if "_" not in filename:
         LOGGER.warning(
             f"You might be trying to use a single end reads file as a paired end reads"
-            + "file. Check your input"
+            + " file. Check your input"
         )
         return 0
     return "1" if "1" in filename.split("_")[-1].split(".")[0] else "2"
@@ -94,7 +94,7 @@ def get_read_pattern(filename: str, direction: str = "1"):
     if "_" not in filename and "/" in filename:
         LOGGER.warning(
             f"{filename} might be a single end reads file. The pattern being returned"
-            + "is the entire filename"
+            + " is the entire filename"
         )
         return filename.split("/")[-1]
     direction_complement = "2" if direction == "1" else "1"
@@ -130,7 +130,7 @@ def get_prefix(filename: str, split_position: str = "-1"):
 def get_rev_file(fwd_file: str):
     LOGGER.debug(
         f"fwd_file: {fwd_file}\nWill replace {get_read_pattern(fwd_file, '1')}"
-        + f"with {get_read_pattern(fwd_file, '2')}"
+        + f" with {get_read_pattern(fwd_file, '2')}"
     )
     return fwd_file.replace(
         get_read_pattern(fwd_file, "1"),
