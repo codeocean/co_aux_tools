@@ -43,11 +43,15 @@ def get_fwd_fastqs(dir: str = "../data"):
     if "\n" in some_fastq:
         some_fastq = some_fastq.split("\n")[0]
     pattern = get_read_pattern(some_fastq)
-    return (
-        subprocess.check_output(["find", "-L", dir, "-name", pattern])
+    log.debug(f"some_fastq: {some_fastq}")
+    log.debug(f"pattern: {pattern}")
+    files = (
+        subprocess.check_output(["find", "-L", dir, "-name", f"*{pattern}"])
         .decode("utf-8")
         .strip()
     )
+    log.debug(f"files: {files}")
+    return files
 
 
 def get_groups(filename: str = "sample_sheet.csv"):
