@@ -7,8 +7,8 @@ try:
 except ImportError as e:
     print(
         f"ImportError: {e}\n"
-        + "Error importing LOGGER: did you add '/opt/co_aux_tools' to "
-        + "PYTHONPATH and PATH ?"
+        + "Error importing LOGGER: did you add '/opt/co_aux_tools/src' to "
+        + "PYTHONPATH"
     )
 
 
@@ -39,5 +39,5 @@ def main(argv=None):
 
 
 if __name__ == "__main__":
-    log.debug(f"args: {sys.argv}")
+    LOGGER.debug(f"args: {sys.argv}")
     print(main(sys.argv))

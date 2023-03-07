@@ -1,10 +1,8 @@
 #!/usr/bin/env python
-import logging
 import sys
 
+from get_logger import LOGGER
 import utils.util
-
-log = logging.getLogger(__name__)
 
 
 def main(argv=None):
@@ -20,5 +18,5 @@ def main(argv=None):
 
 
 if __name__ == "__main__":
-    log.debug(f"args: {sys.argv}")
+    LOGGER.debug(f"args: {sys.argv}")
     print(main(sys.argv))
