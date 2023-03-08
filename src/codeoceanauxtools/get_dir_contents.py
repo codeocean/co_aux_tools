@@ -1,19 +1,20 @@
 #!/usr/bin/env python
 import sys
 
-from get_logger import LOGGER
-import co_aux_utils
+# from get_logger import LOGGER
+from codeoceanauxtools.get_logger import LOGGER
+import co_utils
 
 
 def main(argv=None):
     if len(argv) > 1:
         return (
             f"*** These are the current files in the {argv[1]} directory\n"
-            + f"{co_aux_utils.get_dir_contents(argv[1])}"
+            + f"{co_utils.get_dir_contents(argv[1])}"
         )
     return (
         "*** These are the current files in the ../data directory\n"
-        + f"{co_aux_utils.get_dir_contents()}"
+        + f"{co_utils.get_dir_contents()}"
     )
 
 

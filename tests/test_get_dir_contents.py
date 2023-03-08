@@ -1,6 +1,6 @@
 import subprocess
 
-from src.codeoceanauxtools.utils.util import get_dir_contents
+from src.codeoceanauxtools.co_utils import get_dir_contents
 
 
 # Tests for get_dir_contents

@@ -1,6 +1,6 @@
 from multiprocessing import cpu_count
 
-from src.codeoceanauxtools.utils.util import get_cpu_limit
+from src.codeoceanauxtools.co_utils import get_cpu_limit
 
 
 # Tests for get_cpu_count

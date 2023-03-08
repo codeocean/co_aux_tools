@@ -1,4 +1,4 @@
-from src.codeoceanauxtools.utils.util import get_read_pattern
+from src.codeoceanauxtools.co_fastq import get_read_pattern
 
 
 # Tests for get_read_pattern
@@ -10,6 +10,7 @@ def test_get_read_pattern_R1_filename():
 def test_get_read_pattern_R1_filename_mismatch():
     filename = "gsm12345_other_identifiers_R1.fastq.gz"
     assert not get_read_pattern(filename, "1") == "R2.fastq.gz"
+
 
 def test_get_read_pattern_R1_opposite_filename():
     filename = "gsm12345_other_identifiers_R1.fastq.gz"
@@ -49,6 +50,7 @@ def test_get_read_pattern_R1_filepath():
 def test_get_read_pattern_R1_filepath_mismatch():
     filepath = "/capsule/data/some_random_folder/gsm12345_other_identifiers_R1.fastq.gz"
     assert not get_read_pattern(filepath, "1") == "R2.fastq.gz"
+
 
 def test_get_read_pattern_R1_opposite_filepath():
     filepath = "/capsule/data/some_random_folder/gsm12345_other_identifiers_R1.fastq.gz"

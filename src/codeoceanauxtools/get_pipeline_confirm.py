@@ -1,9 +1,9 @@
 #!/usr/bin/env python
-import co_aux_utils
+import co_utils
 
 
 def main():
-    return co_aux_utils.is_pipeline()
+    return co_utils.is_pipeline()
 
 
 if __name__ == "__main__":

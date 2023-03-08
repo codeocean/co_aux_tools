@@ -1,4 +1,4 @@
-from src.codeoceanauxtools.utils.util import get_read_direction
+from src.codeoceanauxtools.co_fastq import get_read_direction
 
 
 # Tests for get_read_direction

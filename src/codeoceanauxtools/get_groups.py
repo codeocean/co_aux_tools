@@ -1,14 +1,15 @@
 #!/usr/bin/env python
 import sys
 
-from get_logger import LOGGER
-import co_aux_utils
+# from get_logger import LOGGER
+from codeoceanauxtools.get_logger import LOGGER
+import co_utils
 
 
 def main(argv=None):
     if len(argv) > 1:
-        return co_aux_utils.get_groups(argv[1])
-    return co_aux_utils.get_groups()
+        return co_utils.get_groups(argv[1])
+    return co_utils.get_groups()
 
 
 if __name__ == "__main__":

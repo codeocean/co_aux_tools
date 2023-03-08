@@ -1,4 +1,4 @@
-from src.codeoceanauxtools.utils.util import get_rev_file
+from src.codeoceanauxtools.co_fastq import get_rev_file
 
 
 # Tests for get_rev_file
