@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 import sys
 
-from src.co_tools import co_utils
+from .co_utils import get_cpu_limit
 
 
 def main():
-    print(co_utils.get_cpu_limit())
+    print(get_cpu_limit())
     return 0
 
 

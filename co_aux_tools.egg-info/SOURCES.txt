@@ -26,7 +26,6 @@ src/co_tools/set_log_msg.py
 tests/test_get_cpu_count.py
 tests/test_get_dir_contents.py
 tests/test_get_fasta_file.py
-tests/test_get_fwd_fastqs.py
 tests/test_get_groups.py
 tests/test_get_pipeline_confirm.py
 tests/test_get_read_direction.py

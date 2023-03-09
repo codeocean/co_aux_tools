@@ -1,18 +1,16 @@
 #!/usr/bin/env python
 import sys
 
-# from get_logger import LOGGER
-from src.co_tools.get_logger import LOGGER
-from src.co_tools import co_utils
-# import co_tools.co_utils as co_utils
+from .get_logger import LOGGER
+from .co_utils import get_groups
 
 
 def main(argv=sys.argv):
     LOGGER.debug(f"args: {sys.argv}")
     if len(argv) > 1:
-        print(co_utils.get_groups(argv[1]))
+        print(get_groups(argv[1]))
         return 0
-    print(co_utils.get_groups())
+    print(get_groups())
     return 0
 
 
