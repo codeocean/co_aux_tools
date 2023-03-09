@@ -2,11 +2,11 @@
 import sys
 
 # import co_tools.co_utils as co_utils
-from src.co_tools import co_utils
+from .co_utils import is_pipeline
 
 
 def main():
-    print(co_utils.is_pipeline())
+    print(is_pipeline())
     return 0
 
 
