@@ -1,5 +1,7 @@
 #!/usr/bin/env python
-import co_tools.co_utils as co_utils
+import sys
+
+from src.co_tools import co_utils
 
 
 def main():

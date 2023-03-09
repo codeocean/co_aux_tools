@@ -3,8 +3,9 @@ import re
 import sys
 from pathlib import Path
 
-from co_tools.get_logger import LOGGER
-import co_tools.co_fastq as co_fastq
+from src.co_tools.get_logger import LOGGER
+# import co_tools.co_fastq as co_fastq
+from src.co_tools import co_fastq
 
 
 def main(argv=sys.argv):

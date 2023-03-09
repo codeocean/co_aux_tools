@@ -2,8 +2,9 @@
 import sys
 
 # local imports
-import co_tools.co_utils as co_utils
-from co_tools.get_logger import LOGGER
+from src.co_tools import co_utils
+# import co_tools.co_utils as co_utils
+from src.co_tools.get_logger import LOGGER
 
 
 def main(argv=sys.argv):

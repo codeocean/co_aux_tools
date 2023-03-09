@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 import sys
 
-from co_tools.get_logger import LOGGER
-import co_tools.co_utils as co_utils
+from src.co_tools.get_logger import LOGGER
+from src.co_tools import co_utils
 
 
 def main(argv=sys.argv):
