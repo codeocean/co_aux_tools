@@ -4,7 +4,7 @@ import subprocess
 from multiprocessing import cpu_count
 from pathlib import Path
 
-from codeoceanauxtools.get_logger import LOGGER
+from co_tools.get_logger import LOGGER
 
 # import get_logger
 

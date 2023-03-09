@@ -1,4 +1,4 @@
-from src.codeoceanauxtools.co_fastq import get_prefix
+from src.co-tools.co_fastq import get_prefix
 
 
 # Tests for get_prefix

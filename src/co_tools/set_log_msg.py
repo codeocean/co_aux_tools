@@ -2,12 +2,13 @@
 import sys
 
 # local imports
-import co_utils
-from codeoceanauxtools.get_logger import LOGGER
+import co_tools.co_utils as co_utils
+from co_tools.get_logger import LOGGER
 
 
-def main(argv=None):
+def main(argv=sys.argv):
     if len(argv) == 1:
+        LOGGER.error("You failed to provide a log message")
         sys.exit("You failed to provide a log message")
     elif len(argv) == 2:
         return co_utils.print_log_msg(argv[1])
@@ -16,4 +17,4 @@ def main(argv=None):
 
 if __name__ == "__main__":
     LOGGER.debug(f"args: {sys.argv}")
-    print(main(sys.argv))
+    sys.exit(main(sys.argv))

@@ -1,4 +1,5 @@
 import re
+import subprocess
 from pathlib import Path
 
 from .get_logger import LOGGER
@@ -23,6 +24,7 @@ def get_fwd_fastqs(dir: str = "../data"):
         .decode("utf-8")
         .strip()
     )
+    LOGGER.debug(f"type for files is: {type(files)}")
     LOGGER.debug(f"files: {files}")
     return files
 
