@@ -1,12 +1,9 @@
 import os
-import re
 import subprocess
 from multiprocessing import cpu_count
-from pathlib import Path
 
-from .get_logger import LOGGER
-
-# import get_logger
+# local imports
+from .co_logger.get_logger import LOGGER
 
 co_cpus = os.getenv("CO_CPUS")
 aws_batch_job_id = os.getenv("AWS_BATCH_JOB_ID")

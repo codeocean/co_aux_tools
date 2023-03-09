@@ -3,7 +3,7 @@ import sys
 
 # local imports
 from .co_utils import print_log_msg
-from .get_logger import LOGGER
+from .co_logger.get_logger import LOGGER
 
 
 def main(argv=sys.argv):

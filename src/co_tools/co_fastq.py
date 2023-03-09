@@ -2,7 +2,8 @@ import re
 import subprocess
 from pathlib import Path
 
-from .get_logger import LOGGER
+# local imports
+from .co_logger.get_logger import LOGGER
 
 
 def get_fwd_fastqs(dir: str = "../data"):
@@ -64,9 +65,7 @@ def get_prefix(filename: str, split_position: str = "-1"):
     # SampleName_S1_L001_R1_001.fastq.gz for lane 1
     # SampleName_S1_R1_001.fastq.gz for merged lanes.
 
-    match = re.search(r"(.*?)_S\d+_.*R\d_001.fastq.gz", filename)
-
-    if match:
+    if (match := re.search(r"(.*?)_S\d+_.*R\d_001.fastq.gz", filename)):
         LOGGER.debug(f"match: {match}\ngroup 1 (prefix): {match.group(1)}")
         return match.group(1)
 

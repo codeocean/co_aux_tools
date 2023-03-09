@@ -1,9 +1,8 @@
 #!/usr/bin/env python
-import re
 import sys
-from pathlib import Path
 
-from .get_logger import LOGGER
+# local imports
+from .co_logger.get_logger import LOGGER
 from .co_fastq import get_prefix
 
 
