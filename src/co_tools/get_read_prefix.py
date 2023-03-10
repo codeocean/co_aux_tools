@@ -2,8 +2,8 @@
 import sys
 
 # local imports
-from .co_logger.get_logger import LOGGER
-from .co_fastq import get_prefix
+from co_tools.co_logger.get_logger import LOGGER
+from co_tools.co_fastq import get_prefix
 
 
 def main(argv=sys.argv):

@@ -2,8 +2,8 @@
 import sys
 
 # local imports
-from .co_logger.get_logger import LOGGER
-from .co_fastq import get_read_direction
+from co_tools.co_logger.get_logger import LOGGER
+from co_tools.co_fastq import get_read_direction
 
 
 def main(argv=sys.argv):

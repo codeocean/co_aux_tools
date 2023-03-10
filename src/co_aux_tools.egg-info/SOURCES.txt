@@ -14,7 +14,6 @@ co_tools/get_dir_contents.py
 co_tools/get_fasta_file.py
 co_tools/get_fwd_fastqs.py
 co_tools/get_groups.py
-co_tools/get_logger.py
 co_tools/get_pipeline_confirm.py
 co_tools/get_read_direction.py
 co_tools/get_read_pattern.py

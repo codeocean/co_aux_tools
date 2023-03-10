@@ -3,7 +3,7 @@ import subprocess
 from pathlib import Path
 
 # local imports
-from .co_logger.get_logger import LOGGER
+from co_tools.co_logger.get_logger import LOGGER
 
 
 def get_fwd_fastqs(dir: str = "../data"):

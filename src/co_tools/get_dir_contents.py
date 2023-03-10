@@ -2,8 +2,8 @@
 import sys
 
 # local imports
-from .co_logger.get_logger import LOGGER
-from .co_utils import get_dir_contents
+from co_tools.co_logger.get_logger import LOGGER
+from co_tools.co_utils import get_dir_contents
 
 
 def main(argv=sys.argv):
