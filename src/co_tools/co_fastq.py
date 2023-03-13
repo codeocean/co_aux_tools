@@ -1,3 +1,4 @@
+import os
 import re
 import subprocess
 import sys
@@ -9,6 +10,16 @@ from co_tools.get_logger import LOGGER
 
 
 def get_fastq_pair(dir_path: str = "../data"):
+    total_dirs = 0
+    for base, dirs, files in os.walk(dir_path):
+        for dir in dirs:
+            total_dirs += 1
+    if total_dirs != 2:
+        LOGGER.error(
+            f"The fastq files in {dir_path} are not properly configured"
+            + " to use this function"
+        )
+        return 0
     prefix_dict, this_prefix = {}, None
     fwd, rev = None, None
     for path in glob(str(f"{dir_path}/**/*.fastq.gz"), recursive=True):
@@ -16,7 +27,9 @@ def get_fastq_pair(dir_path: str = "../data"):
             if prefix in prefix_dict:
                 prefix_dict[prefix].append(path)
                 if len(prefix_dict[prefix]) == 3:
-                    # this is the prefix to work with
+                    LOGGER.info(
+                        f"prefix {prefix} occurs 3 times in the {dir_path} folder"
+                    )
                     this_prefix = prefix
                     break
             else:
@@ -39,8 +52,7 @@ def get_fastq_pair(dir_path: str = "../data"):
         return f"{fwd},{rev}"
     else:
         LOGGER.error(
-            "Could not find complementary pair of fastq "
-            + f"files in {dir_path}"
+            "Could not find complementary pair of fastq " + f"files in {dir_path}"
         )
         return 0
 
