@@ -11,8 +11,12 @@ def main(argv=sys.argv):
     if len(argv) == 1:
         LOGGER.error("You failed to provide a filename")
         sys.exit("You failed to provide a filename")
-    print(get_rev_file(argv[1]))
-    return 0
+    elif len(argv) == 2:
+        print(get_rev_file(argv[1]))
+        return 0
+    else:
+        print(get_rev_file(argv[1], argv[2]))
+        return 0
 
 
 if __name__ == "__main__":

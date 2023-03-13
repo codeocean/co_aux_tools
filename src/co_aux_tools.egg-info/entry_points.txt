@@ -1,6 +1,7 @@
 [console_scripts]
 get_cpu_count = co_tools.get_cpu_count:main
 get_dir_contents = co_tools.get_dir_contents:main
+get_fastq_pair = co_tools.get_fastq_pair:main
 get_fwd_fastqs = co_tools.get_fwd_fastqs:main
 get_groups = co_tools.get_groups:main
 get_pipeline_confirm = co_tools.get_pipeline_confirm:main

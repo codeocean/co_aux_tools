@@ -1,9 +1,48 @@
 import re
 import subprocess
+import sys
+from glob import glob
 from pathlib import Path
 
 # local imports
 from co_tools.get_logger import LOGGER
+
+
+def get_fastq_pair(dir_path: str = "../data"):
+    prefix_dict, this_prefix = {}, None
+    fwd, rev = None, None
+    for path in glob(str(f"{dir_path}/**/*.fastq.gz"), recursive=True):
+        if prefix := get_prefix(path):
+            if prefix in prefix_dict:
+                prefix_dict[prefix].append(path)
+                if len(prefix_dict[prefix]) == 3:
+                    # this is the prefix to work with
+                    this_prefix = prefix
+                    break
+            else:
+                prefix_dict[prefix] = [path]
+        else:
+            LOGGER.warning(f"No prefix determined for {path}")
+    if not prefix_dict:
+        LOGGER.error(f"No files found in {dir_path}")
+        return 0
+    if not this_prefix:
+        LOGGER.error(f"fastq files in {dir_path} not properly organized")
+        return 0
+    for path in prefix_dict[this_prefix]:
+        if get_read_direction(path) == "1":
+            fwd = path
+        elif get_read_direction(path) == "2":
+            rev = path
+    if fwd and rev:
+        LOGGER.info(f"returning {fwd},{rev}")
+        return f"{fwd},{rev}"
+    else:
+        LOGGER.error(
+            "Could not find complementary pair of fastq "
+            + f"files in {dir_path}"
+        )
+        return 0
 
 
 def get_fwd_fastqs(dir: str = "../data"):
@@ -65,7 +104,7 @@ def get_prefix(filename: str, split_position: str = "-1"):
     # SampleName_S1_L001_R1_001.fastq.gz for lane 1
     # SampleName_S1_R1_001.fastq.gz for merged lanes.
 
-    if (match := re.search(r"(.*?)_S\d+_.*R\d_001.fastq.gz", filename)):
+    if match := re.search(r"(.*?)_S\d+_.*R\d_001.fastq.gz", filename):
         LOGGER.debug(f"match: {match}\ngroup 1 (prefix): {match.group(1)}")
         return match.group(1)
 
@@ -77,12 +116,21 @@ def get_prefix(filename: str, split_position: str = "-1"):
     return filename.split(".")[0]
 
 
-def get_rev_file(fwd_file: str):
+def get_rev_file(fwd_file: str, name_only=False):
+    if name_only:
+        name_only = True if "true" in name_only.lower() else False
     LOGGER.debug(
         f"fwd_file: {fwd_file}\nWill replace {get_read_pattern(fwd_file, '1')}"
         + f" with {get_read_pattern(fwd_file, '2')}"
     )
-    return fwd_file.replace(
-        get_read_pattern(fwd_file, "1"),
-        get_read_pattern(fwd_file, "2"),
+    return (
+        fwd_file.replace(
+            get_read_pattern(fwd_file, "1"),
+            get_read_pattern(fwd_file, "2"),
+        ).split("/")[-1]
+        if name_only
+        else fwd_file.replace(
+            get_read_pattern(fwd_file, "1"),
+            get_read_pattern(fwd_file, "2"),
+        )
     )
