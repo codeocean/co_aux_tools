@@ -2,8 +2,8 @@
 import sys
 
 # local imports
-from co_tools.get_logger import LOGGER
-from co_tools.co_fastq import get_fastq_pair
+from .get_logger import LOGGER
+from .co_fastq import get_fastq_pair
 
 
 def main(argv=sys.argv):

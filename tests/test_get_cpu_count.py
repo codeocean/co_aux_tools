@@ -1,6 +1,6 @@
 from multiprocessing import cpu_count
 
-from src.co-tools.co_utils import get_cpu_limit
+from src.co_tools.co_utils import get_cpu_limit
 
 
 # Tests for get_cpu_count

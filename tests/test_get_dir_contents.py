@@ -1,6 +1,6 @@
 import subprocess
 
-from src.co-tools.co_utils import get_dir_contents
+from src.co_tools.co_utils import get_dir_contents
 
 
 # Tests for get_dir_contents

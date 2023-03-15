@@ -2,7 +2,7 @@
 import sys
 
 # local imports
-from co_tools.co_utils import is_pipeline
+from .co_utils import is_pipeline
 
 
 def main():

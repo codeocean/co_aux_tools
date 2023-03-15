@@ -6,7 +6,7 @@ from glob import glob
 from pathlib import Path
 
 # local imports
-from co_tools.get_logger import LOGGER
+from .get_logger import LOGGER
 
 
 def get_fastq_pair(dir_path: str = "../data"):
@@ -17,7 +17,8 @@ def get_fastq_pair(dir_path: str = "../data"):
     if total_dirs != 2:
         LOGGER.error(
             f"The fastq files in {dir_path} are not properly configured"
-            + " to use this function"
+            + " to use this function. There should be only 2 folders"
+            + " inside the data folder."
         )
         return 0
     prefix_dict, this_prefix = {}, None
@@ -52,33 +53,32 @@ def get_fastq_pair(dir_path: str = "../data"):
         return f"{fwd},{rev}"
     else:
         LOGGER.error(
-            "Could not find complementary pair of fastq " + f"files in {dir_path}"
+            f"Could not find complementary pair of fastq files in {dir_path}"
         )
         return 0
 
 
 def get_fwd_fastqs(dir: str = "../data"):
-    some_fastq = (
+    if some_fastq := (
         subprocess.check_output(["find", "-L", dir, "-name", "*.fastq.gz"])
         .decode("utf-8")
         .strip()
-    )
-    if not some_fastq:
-        LOGGER.error(f"There are no fastq.gz files in the {dir} directory")
-        return 0
-    if "\n" in some_fastq:
-        some_fastq = some_fastq.split("\n")[0]
-    pattern = get_read_pattern(some_fastq)
-    LOGGER.debug(f"some_fastq: {some_fastq}")
-    LOGGER.debug(f"pattern: {pattern}")
-    files = (
+    ):
+        if "\n" in some_fastq:
+            some_fastq = some_fastq.split("\n")[0]
+        LOGGER.debug(f"some_fastq: {some_fastq}")
+        pattern = get_read_pattern(some_fastq)
+        LOGGER.debug(f"pattern: {pattern}")
+        files = (
         subprocess.check_output(["find", "-L", dir, "-name", f"*{pattern}"])
         .decode("utf-8")
         .strip()
     )
-    LOGGER.debug(f"type for files is: {type(files)}")
-    LOGGER.debug(f"files: {files}")
-    return files
+        LOGGER.debug(f"returning files:\n{files}")
+        return files
+    else:
+        LOGGER.error(f"There are no fastq.gz files in the {dir} directory")
+        return 0
 
 
 def get_read_direction(filepath: str):
@@ -86,8 +86,8 @@ def get_read_direction(filepath: str):
     LOGGER.debug(f"filename: {filename}")
     if "_" not in filename:
         LOGGER.warning(
-            f"You might be trying to use a single end reads file as a paired end reads"
-            + " file. Check your input"
+            "You might be trying to use a single end reads file as a paired"
+            + f" end reads file. Current input: {filepath}"
         )
         return 0
     return "1" if "1" in filename.split("_")[-1].split(".")[0] else "2"

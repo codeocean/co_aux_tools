@@ -1,4 +1,4 @@
-from src.co-tools.co_fastq import get_read_direction
+from src.co_tools.co_fastq import get_read_direction
 
 
 # Tests for get_read_direction

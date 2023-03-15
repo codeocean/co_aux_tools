@@ -1,5 +1,5 @@
 import pytest
-from src.co-tools.co_fastq import get_rev_file
+from src.co_tools.co_fastq import get_rev_file
 
 
 
