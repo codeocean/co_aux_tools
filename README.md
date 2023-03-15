@@ -84,7 +84,7 @@ To use it just type `LOGGER.{log level}("your log message here")` where `{log le
 
 e.g. `LOGGER.info("logging is fun")`
 
-** Bash**
+**Bash**
 
 To use the logger in a bash script, just use the `set_log_msg` command. It takes 1 required argument and an additional optional argument.
 
