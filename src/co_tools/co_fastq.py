@@ -69,11 +69,19 @@ def get_fwd_fastqs(dir: str = "../data"):
         LOGGER.debug(f"some_fastq: {some_fastq}")
         pattern = get_read_pattern(some_fastq)
         LOGGER.debug(f"pattern: {pattern}")
-        files = (
+        subprocess_files = (
         subprocess.check_output(["find", "-L", dir, "-name", f"*{pattern}"])
         .decode("utf-8")
         .strip()
     )
+        LOGGER.debug(f"subprocess_files:\n{subprocess_files}")
+        subprocess_files = subprocess_files.split("\n")
+        subprocess_files.sort()
+        LOGGER.debug(f"sorted subprocess_files:\n{subprocess_files}")
+        files = ""
+        for elem in files:
+            files += f"{elem}\n"
+        files = files.strip()
         LOGGER.debug(f"returning files:\n{files}")
         return files
     else:
