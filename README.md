@@ -5,19 +5,25 @@
 
 #### Convenience tools for working in Code Ocean capsules and pipelines.
 
-<hr>
+---
 
 ### Background
 
 These convenience tools were created to make working with working with sequencing files more streamlined. Some of the tools in this package are only useful in the Code Ocean platform but many of these tools will be useful outside of the platform.
 
-<hr>
+---
+
+### Requirements
+
+Python>=3.8
+
+---
 
 ### Installing *Code Ocean* Aux Tools in your capsule
 
 Add one line of code to your postintall script. At a later time this will be a package you can add to pip in the environment UI.
 
-`pip install -i https://test.pypi.org/simple/ co-aux-tools`
+`pip install -i https://test.pypi.org/simple/ Code-Ocean-Aux-Tools`
 
 ---
 ### List of  Available Commands
