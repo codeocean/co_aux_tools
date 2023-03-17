@@ -1,4 +1,4 @@
-from src.codeoceanauxtools.co_fastq import get_read_pattern
+from src.co_tools.co_fastq import get_read_pattern
 
 
 # Tests for get_read_pattern

@@ -1,12 +1,9 @@
 import os
-import re
 import subprocess
 from multiprocessing import cpu_count
-from pathlib import Path
 
-from codeoceanauxtools.get_logger import LOGGER
-
-# import get_logger
+# local imports
+from .get_logger import LOGGER
 
 co_cpus = os.getenv("CO_CPUS")
 aws_batch_job_id = os.getenv("AWS_BATCH_JOB_ID")
@@ -32,6 +29,10 @@ def get_dir_contents(dir: str = "../data"):
     cmd = ["find", "-L", dir]
     LOGGER.debug(f"Running subprocess with the following cmd: {cmd}")
     return subprocess.check_output(cmd).decode("utf-8").strip()
+
+
+def get_filename(filename):
+    pass
 
 
 def get_groups(filename: str = "sample_sheet.csv"):

@@ -1,6 +1,6 @@
 import pytest
 
-from src.codeoceanauxtools.co_utils import get_groups
+from src.co_tools.co_utils import get_groups
 
 
 @pytest.fixture

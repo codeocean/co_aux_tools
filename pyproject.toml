@@ -1,0 +1,42 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/co_tools"]
+
+[project]
+name = "Code_Ocean_Aux_Tools"
+version = "0.0.9"
+authors = [
+  { name="Frank Zappulla", email="frank@codeocean.com" },
+  { name="June Snedecor", email="june@codeocean.com" },
+]
+maintainers = [
+    { name="Frank Zappulla", email="frank@codeocean.com" }
+]
+description = "A suite of convenience tools for working with sequencing files and Code Ocean capsules"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.scripts]
+get_cpu_count = "co_tools.get_cpu_count:main"
+get_dir_contents = "co_tools.get_dir_contents:main"
+get_fastq_pair = "co_tools.get_fastq_pair:main"
+get_fwd_fastqs = "co_tools.get_fwd_fastqs:main"
+get_groups = "co_tools.get_groups:main"
+get_pipeline_confirm = "co_tools.get_pipeline_confirm:main"
+get_read_direction = "co_tools.get_read_direction:main"
+get_read_pattern = "co_tools.get_read_pattern:main"
+get_read_prefix = "co_tools.get_read_prefix:main"
+get_rev_file = "co_tools.get_rev_file:main"
+set_log_msg = "co_tools.set_log_msg:main"
+
+[project.urls]
+"Homepage" = "https://github.com/codeocean/co_aux_tools"
+"Bug Tracker" = "https://github.com/codeocean/co_aux_tools/issues"
