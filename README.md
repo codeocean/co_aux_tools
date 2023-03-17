@@ -75,7 +75,7 @@ from co_tools import co_fastq
 
 There is a pre-configured logger that will work seamlessly in bash and/or python and output to the same log file. The format for each log entry is:
 
-`[{Time} {Date} - {log name} - {filename}:{lineno} - {Log Level}] {log message}`
+`[{Date} {Time} - {log name} - {filename}:{lineno} - {Log Level}] {log message}`
 
 The available [log levels](https://docs.python.org/3/howto/logging.html) are `debug`, `info`, `warning`, `error`, and `critical`
 
