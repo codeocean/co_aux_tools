@@ -1,7 +1,5 @@
 import os
 import re
-import subprocess
-import sys
 from glob import glob
 from pathlib import Path
 
@@ -10,6 +8,15 @@ from .get_logger import LOGGER
 
 
 def get_fastq_pair(dir_path: str = "../data"):
+    """This function returns a pair of paired-end reads files
+
+    Args:
+        dir_path (str, optional): The folder where all the reads files are. 
+        Defaults to "../data".
+
+    Returns:
+        str: comma-separated pair of reads files as path to files
+    """
     total_dirs = 0
     for base, dirs, files in os.walk(dir_path):
         for dir in dirs:
@@ -59,37 +66,37 @@ def get_fastq_pair(dir_path: str = "../data"):
 
 
 def get_fwd_fastqs(dir: str = "../data"):
-    if some_fastq := (
-        subprocess.check_output(["find", "-L", dir, "-name", "*.fastq.gz"])
-        .decode("utf-8")
-        .strip()
-    ):
-        if "\n" in some_fastq:
-            some_fastq = some_fastq.split("\n")[0]
-        LOGGER.debug(f"some_fastq: {some_fastq}")
-        pattern = get_read_pattern(some_fastq)
-        LOGGER.debug(f"pattern: {pattern}")
-        subprocess_files = (
-        subprocess.check_output(["find", "-L", dir, "-name", f"*{pattern}"])
-        .decode("utf-8")
-        .strip()
-    )
-        LOGGER.debug(f"subprocess_files:\n{subprocess_files}")
-        subprocess_files = subprocess_files.split("\n")
-        subprocess_files.sort()
-        LOGGER.debug(f"sorted subprocess_files:\n{subprocess_files}")
-        files = ""
-        for elem in files:
-            files += f"{elem}\n"
-        files = files.strip()
-        LOGGER.debug(f"returning files:\n{files}")
-        return files
+    """Returns all the forward reads files in ascending alphabetical order
+
+    Args:
+        dir (str, optional): The folder where all the reads file are.
+        Defaults to "../data".
+
+    Returns:
+        str: newline-separated string of forward reads files
+    """
+    if fastq_files := glob(str(f"{dir}/**/*.fastq.gz"), recursive=True):
+        LOGGER.debug(f"Found the following fastq files in the {dir} folder:\n{fastq_files}")
+        pattern = get_read_pattern(fastq_files[0])
+        fwd_fastqs_list = glob(str(f"{dir}/**/*{pattern}"), recursive=True)
+        fwd_fastqs_list.sort()
+        fwd_fastqs = "\n".join(fwd_fastqs_list)
+        LOGGER.debug(f"Returning the following fwd fastq files\n{fwd_fastqs}")
+        return fwd_fastqs
     else:
         LOGGER.error(f"There are no fastq.gz files in the {dir} directory")
         return 0
 
 
 def get_read_direction(filepath: str):
+    """This function returns the direction of a single paired-end reads file
+
+    Args:
+        filepath (str): The path to the reads file you need the direction of
+
+    Returns:
+        str: Returns 1 if file is detected as forward, 2 otherwise
+    """
     filename = filepath.split("/")[-1]
     LOGGER.debug(f"filename: {filename}")
     if "_" not in filename:
@@ -102,6 +109,17 @@ def get_read_direction(filepath: str):
 
 
 def get_read_pattern(filename: str, direction: str = "1"):
+    """This function returns the pattern shared for half the paired-end reads files
+
+    Args:
+        filename (str): Name of file to determine pattern from
+        direction (str, optional): The direction you need the pattern for. 
+        Defaults to "1". Accepts "1" for forward or "2" for reverse
+
+    Returns:
+        str: The pattern for all the forward or reverse paired-end reads file
+        corresponding to the direction you specified in 'direction'
+    """
     if "_" not in filename and "/" in filename:
         LOGGER.warning(
             f"{filename} might be a single end reads file. The pattern being returned"
@@ -119,6 +137,20 @@ def get_read_pattern(filename: str, direction: str = "1"):
 
 
 def get_prefix(filename: str, split_position: str = "-1"):
+    """This function returns the prefix that is unique to (1) pair of paired-end files
+
+    Args:
+        filename (str): The name of the file to determine prefix from
+        split_position (str, optional): If underscores are in the filename and user
+        just needs to trim the filename after a certain underscore, then
+        this arg specifies where to trim e.g. 
+        get_prefix("GSM1234_sample12_exp.fastq.gz", -1) returns "GSM1234_sample12"). 
+        Defaults to "-1".
+
+    Returns:
+        str: Returns the prefix that is unique to a single pair of paired-end
+        reads files.
+    """
     filename = Path(filename).name
     # illumina read files use a specific format, and sometimes allow underscores in the prefix
     # SampleName_S1_L001_R1_001.fastq.gz for lane 1
@@ -137,6 +169,17 @@ def get_prefix(filename: str, split_position: str = "-1"):
 
 
 def get_rev_file(fwd_file: str, name_only=False):
+    """This function returns the reverse reads file
+
+    Args:
+        fwd_file (str): The forward file you want to find the
+        reverse file for.
+        name_only (bool, optional): Set to True if you want this function to
+        return only the filename. Defaults to False.
+
+    Returns:
+        _type_: _description_
+    """
     if name_only:
         name_only = True if "true" in name_only.lower() else False
     LOGGER.debug(
