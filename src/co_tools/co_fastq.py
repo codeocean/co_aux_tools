@@ -11,7 +11,7 @@ def get_fastq_pair(dir_path: str = "../data"):
     """This function returns a pair of paired-end reads files
 
     Args:
-        dir_path (str, optional): The folder where all the reads files are. 
+        dir_path (str, optional): The folder where all the reads files are.
         Defaults to "../data".
 
     Returns:
@@ -59,9 +59,7 @@ def get_fastq_pair(dir_path: str = "../data"):
         LOGGER.info(f"returning {fwd},{rev}")
         return f"{fwd},{rev}"
     else:
-        LOGGER.error(
-            f"Could not find complementary pair of fastq files in {dir_path}"
-        )
+        LOGGER.error(f"Could not find complementary pair of fastq files in {dir_path}")
         return 0
 
 
@@ -76,7 +74,9 @@ def get_fwd_fastqs(dir: str = "../data"):
         str: newline-separated string of forward reads files
     """
     if fastq_files := glob(str(f"{dir}/**/*.fastq.gz"), recursive=True):
-        LOGGER.debug(f"Found the following fastq files in the {dir} folder:\n{fastq_files}")
+        LOGGER.debug(
+            f"Found the following fastq files in the {dir} folder:\n{fastq_files}"
+        )
         pattern = get_read_pattern(fastq_files[0])
         fwd_fastqs_list = glob(str(f"{dir}/**/*{pattern}"), recursive=True)
         fwd_fastqs_list.sort()
@@ -113,7 +113,7 @@ def get_read_pattern(filename: str, direction: str = "1"):
 
     Args:
         filename (str): Name of file to determine pattern from
-        direction (str, optional): The direction you need the pattern for. 
+        direction (str, optional): The direction you need the pattern for.
         Defaults to "1". Accepts "1" for forward or "2" for reverse
 
     Returns:
@@ -143,8 +143,8 @@ def get_prefix(filename: str, split_position: str = "-1"):
         filename (str): The name of the file to determine prefix from
         split_position (str, optional): If underscores are in the filename and user
         just needs to trim the filename after a certain underscore, then
-        this arg specifies where to trim e.g. 
-        get_prefix("GSM1234_sample12_exp.fastq.gz", -1) returns "GSM1234_sample12"). 
+        this arg specifies where to trim e.g.
+        get_prefix("GSM1234_sample12_exp.fastq.gz", -1) returns "GSM1234_sample12").
         Defaults to "-1".
 
     Returns:
@@ -168,32 +168,44 @@ def get_prefix(filename: str, split_position: str = "-1"):
     return filename.split(".")[0]
 
 
-def get_rev_file(fwd_file: str, name_only=False):
-    """This function returns the reverse reads file
+def get_rev_file(
+    fwd_file: str, name_only=False, pattern_fwd: bool = False, pattern_rev: bool = False
+):
+    """_summary_
 
     Args:
-        fwd_file (str): The forward file you want to find the
-        reverse file for.
+        fwd_file (str): The forward file you want to find the reverse
+        file for.
         name_only (bool, optional): Set to True if you want this function to
         return only the filename. Defaults to False.
+        pattern_fwd (bool, optional): Specify the pattern to replace.
+        Defaults to False.
+        pattern_rev (bool, optional): Specify the replacement pattern.
+        Defaults to False.
 
     Returns:
-        _type_: _description_
+        str: The reverse reads file
     """
     if name_only:
         name_only = True if "true" in name_only.lower() else False
+    if not pattern_fwd:
+        pattern_fwd = get_read_pattern(fwd_file, "1")
+        LOGGER.debug(f"Autodetected forward pattern: {pattern_fwd}")
+    if not pattern_rev:
+        pattern_rev = get_read_pattern(fwd_file, "2")
+        LOGGER.debug(f"Autodetected reverse pattern: {pattern_rev}")
     LOGGER.debug(
-        f"fwd_file: {fwd_file}\nWill replace {get_read_pattern(fwd_file, '1')}"
-        + f" with {get_read_pattern(fwd_file, '2')}"
+        f"fwd_file: {fwd_file}\nWill replace {pattern_fwd}"
+        + f" with {pattern_rev}"
     )
     return (
         fwd_file.replace(
-            get_read_pattern(fwd_file, "1"),
-            get_read_pattern(fwd_file, "2"),
+            pattern_fwd,
+            pattern_rev,
         ).split("/")[-1]
         if name_only
         else fwd_file.replace(
-            get_read_pattern(fwd_file, "1"),
-            get_read_pattern(fwd_file, "2"),
+            pattern_fwd,
+            pattern_rev,
         )
     )
