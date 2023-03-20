@@ -36,7 +36,7 @@ def get_cpu_limit(co_cpus=co_cpus, aws_batch_job_id=aws_batch_job_id):
 
 
 def get_dir_contents(dir: str = "../data"):
-    """This function finds all the files and folders in a dir 
+    """This function finds all the files and folders in a dir
 
     Args:
         dir (str, optional): The folder you want to search in. Defaults to "../data".
@@ -93,7 +93,7 @@ def get_groups(filename: None):
             LOGGER.debug(f"Returning the following groups from sample sheet: {groups}")
             return ",".join(groups)
     except Exception as e:
-        LOGGER.error(f"Could not open {sample_sheet}.")
+        LOGGER.error(f"Could not open {sample_sheet} due to error {e}.")
         return 0
 
 
