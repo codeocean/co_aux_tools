@@ -165,7 +165,8 @@ def get_prefix(filename: str, split_position: str = "-1"):
         LOGGER.debug(f"prefix_list: {prefix_list}")
         return "_".join(prefix_list)
 
-    return filename.split(".")[0]
+    LOGGER.warning(f"A prefix was not able to be determined for {filename}")
+    return 0
 
 
 def get_rev_file(

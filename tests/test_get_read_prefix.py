@@ -34,7 +34,7 @@ def test_get_prefix_R2():
 
 def test_get_prefix_single_end1():
     filename = "GSM1234_sample12_exp.fastq.gz"
-    assert get_prefix(filename, 0) == "GSM1234_sample12_exp"
+    assert not get_prefix(filename, 0)
 
 
 def test_get_prefix_single_end2():
