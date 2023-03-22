@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 import sys
 
+from .co_fastq import get_prefix
 # local imports
 from .get_logger import LOGGER
-from .co_fastq import get_prefix
 
 
 def main(argv=sys.argv):

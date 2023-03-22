@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 import sys
 
+from .co_utils import get_dir_contents
 # local imports
 from .get_logger import LOGGER
-from .co_utils import get_dir_contents
 
 
 def main(argv=sys.argv):

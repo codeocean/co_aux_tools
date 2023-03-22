@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 import sys
 
+from .co_utils import get_groups
 # local imports
 from .get_logger import LOGGER
-from .co_utils import get_groups
 
 
 def main(argv=sys.argv):

@@ -1,7 +1,7 @@
 import os
-from pathlib import Path
 from glob import glob
 from multiprocessing import cpu_count
+from pathlib import Path
 
 # local imports
 from .get_logger import LOGGER

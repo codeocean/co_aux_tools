@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 import sys
 
+from .co_fastq import get_fastq_pair
 # local imports
 from .get_logger import LOGGER
-from .co_fastq import get_fastq_pair
 
 
 def main(argv=sys.argv):
