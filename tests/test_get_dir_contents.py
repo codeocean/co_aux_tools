@@ -1,6 +1,7 @@
-import pytest
 import subprocess
 from glob import glob
+
+import pytest
 
 from src.co_tools.co_utils import get_dir_contents
 

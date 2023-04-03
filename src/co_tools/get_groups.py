@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 import sys
 
-from .co_utils import get_groups
 # local imports
+from .co_utils import get_groups
 from .get_logger import LOGGER
 
 

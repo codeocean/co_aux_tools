@@ -97,7 +97,7 @@ def get_read_direction(filepath: str):
     Returns:
         str: Returns 1 if file is detected as forward, 2 otherwise
     """
-    filename = filepath.split("/")[-1]
+    filename = Path(filepath).name
     LOGGER.debug(f"filename: {filename}")
     if "_" not in filename:
         LOGGER.warning(
@@ -125,7 +125,7 @@ def get_read_pattern(filename: str, direction: str = "1"):
             f"{filename} might be a single end reads file. The pattern being returned"
             + " is the entire filename"
         )
-        return filename.split("/")[-1]
+        return Path(filename).name
     direction_complement = "2" if direction == "1" else "1"
     pattern = filename.split("_")[-1]
     LOGGER.debug(f"pattern: {pattern}")

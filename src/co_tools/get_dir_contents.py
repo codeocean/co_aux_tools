@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 import sys
 
-from .co_utils import get_dir_contents
 # local imports
+from .co_utils import get_dir_contents
 from .get_logger import LOGGER
 
 

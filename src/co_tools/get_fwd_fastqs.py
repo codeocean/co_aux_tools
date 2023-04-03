@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 import sys
 
-from .co_fastq import get_fwd_fastqs
 # local imports
+from .co_fastq import get_fwd_fastqs
 from .get_logger import LOGGER
 
 

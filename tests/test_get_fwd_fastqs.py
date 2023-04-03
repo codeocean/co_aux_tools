@@ -1,10 +1,10 @@
-import pytest
 import subprocess
 from pathlib import Path
 
+import pytest
+
 # from testfixtures import TempDirectory
 from src.co_tools.co_fastq import get_fwd_fastqs
-
 
 # Tests for get_fwd_fastqs
 

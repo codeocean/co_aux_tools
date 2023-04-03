@@ -1,6 +1,8 @@
-import pytest
 import subprocess
 from pathlib import Path
+
+import pytest
+
 
 @pytest.fixture()
 def fastq_dir(tmp_path):
