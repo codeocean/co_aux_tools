@@ -75,8 +75,12 @@ def get_groups(filename: None):
         LOGGER.debug(f"type for {filename}: {type(filename)}")
         if files_found := glob(str(f"../data/{filename}"), recursive=True):
             if len(files_found) > 1:
-                LOGGER.warning(f"Found multiple sample_sheets. Will use {files_found[0]}")
-            LOGGER.debug(f"Searching found the following sample sheet(s):\n{files_found}")
+                LOGGER.warning(
+                    f"Found multiple sample_sheets. Will use {files_found[0]}"
+                )
+            LOGGER.debug(
+                f"Searching found the following sample sheet(s):\n{files_found}"
+            )
             sample_sheet = files_found[0]
         else:
             LOGGER.error(f"No sample sheet found for '{filename}'")

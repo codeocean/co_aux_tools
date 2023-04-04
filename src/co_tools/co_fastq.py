@@ -196,14 +196,15 @@ def get_rev_file(
         pattern_rev = get_read_pattern(fwd_file, "2")
         LOGGER.debug(f"Autodetected reverse pattern: {pattern_rev}")
     LOGGER.debug(
-        f"fwd_file: {fwd_file}\nWill replace {pattern_fwd}"
-        + f" with {pattern_rev}"
+        f"fwd_file: {fwd_file}\nWill replace {pattern_fwd}" + f" with {pattern_rev}"
     )
     return (
         fwd_file.replace(
             pattern_fwd,
             pattern_rev,
-        ).split("/")[-1]
+        ).split(
+            "/"
+        )[-1]
         if name_only
         else fwd_file.replace(
             pattern_fwd,
