@@ -188,7 +188,7 @@ def get_rev_file(
         str: The reverse reads file
     """
     if name_only:
-        name_only = True if "true" in name_only.lower() else False
+        name_only = True if "true" in str(name_only).lower() else False
     if not pattern_fwd:
         pattern_fwd = get_read_pattern(fwd_file, "1")
         LOGGER.debug(f"Autodetected forward pattern: {pattern_fwd}")
@@ -199,12 +199,12 @@ def get_rev_file(
         f"fwd_file: {fwd_file}\nWill replace {pattern_fwd}" + f" with {pattern_rev}"
     )
     return (
-        fwd_file.replace(
-            pattern_fwd,
-            pattern_rev,
-        ).split(
-            "/"
-        )[-1]
+        Path(
+            fwd_file.replace(
+                pattern_fwd,
+                pattern_rev,
+            )
+        ).name
         if name_only
         else fwd_file.replace(
             pattern_fwd,

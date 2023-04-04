@@ -34,6 +34,20 @@ def test_get_rev_file_R2_path():
     assert get_rev_file(filepath) == "/path/to/reads/gsm123_rep1_R2.fastq.gz"
 
 
+
+def test_get_rev_filename_R1_path():
+    filepath = "/path/to/reads/gsm123_rep1_R1.fastq.gz"
+    assert get_rev_file(filepath, name_only=True) == "gsm123_rep1_R2.fastq.gz"
+
+
+def test_get_rev_filename_R2_path():
+    filepath = "/path/to/reads/gsm123_rep1_R2.fastq.gz"
+    assert get_rev_file(filepath, name_only=True) == "gsm123_rep1_R2.fastq.gz"
+
+
+
+
+
 def test_get_rev_file_1():
     filepath = "gsm123_rep1_1.fastq.gz"
     assert get_rev_file(filepath) == "gsm123_rep1_2.fastq.gz"
