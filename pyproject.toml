@@ -7,10 +7,9 @@ packages = ["src/co_tools"]
 
 [project]
 name = "Code_Ocean_Aux_Tools"
-version = "0.0.10"
+version = "0.1.00"
 authors = [
   { name="Frank Zappulla", email="frank@codeocean.com" },
-  { name="June Snedecor", email="june@codeocean.com" },
 ]
 maintainers = [
     { name="Frank Zappulla", email="frank@codeocean.com" }

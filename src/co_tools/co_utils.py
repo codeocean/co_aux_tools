@@ -45,11 +45,7 @@ def get_dir_contents(dir: str = "../data"):
         str: newline separated string of files and folders in the search dir.
     """
     if dir_contents := glob(str(f"{dir}/**/*"), recursive=True):
-        joined_contents = "\n".join(dir_contents)
-        LOGGER.info(
-            f"The following files and folders are in the {dir} folder:\n{joined_contents}"
-        )
-        return joined_contents
+        return "\n".join(dir_contents)
     LOGGER.warning(f"There are no files or folders in the {dir} folder.")
     return 0
 
