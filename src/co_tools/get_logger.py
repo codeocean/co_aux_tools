@@ -1,11 +1,13 @@
-#!/usr/bin/env python
 import logging
 import os
 
 LOGGER_DIR_PATH = "../results/co_logs"  # path to log directory
-LOGGER_FILE_NAME = "co_log"  # name for the log file in ../results/co_logs
-ENV_LEVEL = os.environ.get("CO_LOG_LEVEL").upper()
-DEFAULT_LEVEL = "WARNING" if not ENV_LEVEL else ENV_LEVEL
+co_computation_id = os.environ.get("CO_COMPUTATION_ID")
+aws_batch_job_id = os.getenv("AWS_BATCH_JOB_ID")
+# name for the log file in ../results/co_logs
+LOGGER_FILE_NAME = co_computation_id if co_computation_id else aws_batch_job_id
+ENV_LEVEL = os.environ.get("CO_LOG_LEVEL")
+DEFAULT_LEVEL = "WARNING" if not ENV_LEVEL else ENV_LEVEL.upper()
 
 """
 Benefit to this logger is that it adds to each log entry a timestamp,
@@ -88,7 +90,7 @@ def generate_logger(
     file_handle = logging.FileHandler(f"{LOGGER_DIR_PATH}/{name}.log")
     file_handle.setLevel(logging_level)
     # create formatter and add it to the handlers
-    log_format = logging.Formatter(format_string)
+    log_format = logging.Formatter(format_string, "%Y-%m-%d %H:%M:%S")
     file_handle.setFormatter(log_format)
 
     logger.addHandler(file_handle)
