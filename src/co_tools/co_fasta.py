@@ -35,7 +35,7 @@ def find_fasta_file(input_path: Path):
             matched_files.append(fasta_file)
     if len(matched_files) > 1:
         LOGGER.warning(
-            f"More than one fasta file matched! Will only return {matched_files[0]}"
+            f"More than one fasta file matched! Returning {matched_files[0]}"
         )
         return matched_files[0]
     elif len(matched_files) == 1:
