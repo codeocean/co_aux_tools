@@ -34,6 +34,7 @@ The following commands will work at the terminal or in a bash script
 
     - get_cpu_count
     - get_dir_contents
+    - get_fasta_file
     - get_fastq_pair
     - get_fwd_fastqs
     - get_groups
