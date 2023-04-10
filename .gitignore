@@ -1,5 +1,4 @@
 data/
-dist/
 tests/results/
 tests/__pycache__/
 __pycache__
