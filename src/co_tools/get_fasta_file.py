@@ -6,9 +6,11 @@ from .co_fasta import find_fasta_file
 
 if os.getenv("CO_LOG").lower() == "true":
     from .get_logger import LOGGER
+
     log = LOGGER
 else:
     import logging
+
     log = logging.getLogger(__name__)
 
 

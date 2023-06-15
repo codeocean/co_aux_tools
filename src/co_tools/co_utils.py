@@ -5,9 +5,11 @@ from pathlib import Path
 
 if os.getenv("CO_LOG").lower() == "true":
     from .get_logger import LOGGER
+
     log = LOGGER
 else:
     import logging
+
     log = logging.getLogger(__name__)
 
 co_cpus = os.getenv("CO_CPUS")
@@ -24,7 +26,7 @@ def get_cpu_limit(co_cpus=co_cpus, aws_batch_job_id=aws_batch_job_id):
     Returns:
         int: number of cores available for compute
     """
-    log.debug(f"co_cpus: {co_cpus}\naws_batch_job_id: {aws_batch_job_id}")
+    log.debug(f"co_cpus: {co_cpus} aws_batch_job_id: {aws_batch_job_id}")
     if co_cpus:
         return co_cpus
     if aws_batch_job_id:
@@ -35,7 +37,7 @@ def get_cpu_limit(co_cpus=co_cpus, aws_batch_job_id=aws_batch_job_id):
         cfs_period_us = int(fp.read())
     container_cpus = cfs_quota_us // cfs_period_us
     # For physical machine, the `cfs_quota_us` could be '-1'
-    log.debug(f"container_cpus: {container_cpus}\ncpu_count(): {cpu_count()}")
+    log.debug(f"container_cpus: {container_cpus} cpu_count(): {cpu_count()}")
     return cpu_count() if container_cpus < 1 else container_cpus
 
 
@@ -49,12 +51,13 @@ def get_dir_contents(dir: str = "../data"):
         str: newline separated string of files and folders in the search dir.
     """
     if dir_contents := glob(str(f"{dir}/**/*"), recursive=True):
+        log.debug(f"Found the following files in {dir} {dir_contents}")
         return "\n".join(dir_contents)
     log.warning(f"There are no files or folders in the {dir} folder.")
     return 0
 
 
-def get_groups(filename: None):
+def get_groups(filename: str = "../data/sample_sheet.csv"):
     """This function returns all the groups in a .csv
 
     Args:
@@ -66,24 +69,20 @@ def get_groups(filename: None):
     Returns:
         str: comma-separated string of groups in ascending alphabetical order.
     """
-    if not filename:
-        sample_sheet = "../data/sample_sheet.csv"
-    elif Path(filename).is_file():
+    # if not filename:
+    #     sample_sheet = "../data/sample_sheet.csv"
+    if Path(filename).is_file():
         log.debug(f"{filename} is a file.")
         sample_sheet = filename
     else:
         log.debug(f"type for {filename}: {type(filename)}")
         if files_found := glob(str(f"../data/{filename}"), recursive=True):
             if len(files_found) > 1:
-                log.warning(
-                    f"Found multiple sample_sheets. Will use {files_found[0]}"
-                )
-            log.debug(
-                f"Searching found the following sample sheet(s):\n{files_found}"
-            )
+                log.warning(f"Found multiple sample_sheets. Will use {files_found[0]}")
+            log.debug(f"Searching found the following sample sheet(s): {files_found}")
             sample_sheet = files_found[0]
         else:
-            log.error(f"No sample sheet found for '{filename}'")
+            log.warning(f"No sample sheet found for '{filename}'")
             return 0
     groups_set = set()
     try:

@@ -6,9 +6,11 @@ from .co_fastq import get_fwd_fastqs
 
 if os.getenv("CO_LOG").lower() == "true":
     from .get_logger import LOGGER
+
     log = LOGGER
 else:
     import logging
+
     log = logging.getLogger(__name__)
 
 

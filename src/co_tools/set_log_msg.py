@@ -1,13 +1,16 @@
 #!/usr/bin/env python
+import os
 import sys
 
 from .co_utils import print_log_msg
 
 if os.getenv("CO_LOG").lower() == "true":
     from .get_logger import LOGGER
+
     log = LOGGER
 else:
     import logging
+
     log = logging.getLogger(__name__)
 
 

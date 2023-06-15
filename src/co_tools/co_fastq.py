@@ -5,9 +5,11 @@ from pathlib import Path
 
 if os.getenv("CO_LOG").lower() == "true":
     from .get_logger import LOGGER
+
     log = LOGGER
 else:
     import logging
+
     log = logging.getLogger(__name__)
 
 
@@ -39,9 +41,7 @@ def get_fastq_pair(dir_path: str = "../data"):
             if prefix in prefix_dict:
                 prefix_dict[prefix].append(path)
                 if len(prefix_dict[prefix]) == 3:
-                    log.info(
-                        f"prefix {prefix} occurs 3 times in the {dir_path} folder"
-                    )
+                    log.info(f"prefix {prefix} occurs 3 times in the {dir_path} folder")
                     this_prefix = prefix
                     break
             else:
@@ -49,10 +49,10 @@ def get_fastq_pair(dir_path: str = "../data"):
         else:
             log.warning(f"No prefix determined for {path}")
     if not prefix_dict:
-        log.error(f"No files found in {dir_path}")
+        log.warning(f"No files found in {dir_path}")
         return 0
     if not this_prefix:
-        log.error(f"fastq files in {dir_path} not properly organized")
+        log.warning(f"fastq files in {dir_path} not properly organized")
         return 0
     for path in prefix_dict[this_prefix]:
         if get_read_direction(path) == "1":
@@ -63,7 +63,7 @@ def get_fastq_pair(dir_path: str = "../data"):
         log.info(f"returning {fwd},{rev}")
         return f"{fwd},{rev}"
     else:
-        log.error(f"Could not find complementary pair of fastq files in {dir_path}")
+        log.warning(f"Could not find complementary pair of fastq files in {dir_path}")
         return 0
 
 
