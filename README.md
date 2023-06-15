@@ -25,7 +25,7 @@ Python>=3.8
 
 Add one line of code to your postintall script. At a later time this will be a package you can add to pip in the environment UI.
 
-`pip install -i https://test.pypi.org/simple/ Code-Ocean-Aux-Tools`
+`pip install Code-Ocean-Aux-Tools`
 
 ---
 ### List of  Available Commands
