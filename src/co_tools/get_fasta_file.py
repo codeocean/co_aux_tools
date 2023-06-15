@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 import sys
-from pathlib import Path
 
 # local import
 from .co_fasta import find_fasta_file
