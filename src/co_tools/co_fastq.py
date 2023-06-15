@@ -3,8 +3,14 @@ import re
 from glob import glob
 from pathlib import Path
 
-# local imports
-from .get_logger import LOGGER
+if os.getenv("CO_LOG").lower() == "true":
+    from .get_logger import LOGGER
+
+    log = LOGGER
+else:
+    import logging
+
+    log = logging.getLogger(__name__)
 
 
 def get_fastq_pair(dir_path: str = "../data"):
@@ -22,7 +28,7 @@ def get_fastq_pair(dir_path: str = "../data"):
         for dir in dirs:
             total_dirs += 1
     if total_dirs != 2:
-        LOGGER.error(
+        log.error(
             f"The fastq files in {dir_path} are not properly configured"
             + " to use this function. There should be only 2 folders"
             + " inside the data folder."
@@ -35,20 +41,18 @@ def get_fastq_pair(dir_path: str = "../data"):
             if prefix in prefix_dict:
                 prefix_dict[prefix].append(path)
                 if len(prefix_dict[prefix]) == 3:
-                    LOGGER.info(
-                        f"prefix {prefix} occurs 3 times in the {dir_path} folder"
-                    )
+                    log.info(f"prefix {prefix} occurs 3 times in the {dir_path} folder")
                     this_prefix = prefix
                     break
             else:
                 prefix_dict[prefix] = [path]
         else:
-            LOGGER.warning(f"No prefix determined for {path}")
+            log.warning(f"No prefix determined for {path}")
     if not prefix_dict:
-        LOGGER.error(f"No files found in {dir_path}")
+        log.warning(f"No files found in {dir_path}")
         return 0
     if not this_prefix:
-        LOGGER.error(f"fastq files in {dir_path} not properly organized")
+        log.warning(f"fastq files in {dir_path} not properly organized")
         return 0
     for path in prefix_dict[this_prefix]:
         if get_read_direction(path) == "1":
@@ -56,10 +60,10 @@ def get_fastq_pair(dir_path: str = "../data"):
         elif get_read_direction(path) == "2":
             rev = path
     if fwd and rev:
-        LOGGER.info(f"returning {fwd},{rev}")
+        log.info(f"returning {fwd},{rev}")
         return f"{fwd},{rev}"
     else:
-        LOGGER.error(f"Could not find complementary pair of fastq files in {dir_path}")
+        log.warning(f"Could not find complementary pair of fastq files in {dir_path}")
         return 0
 
 
@@ -74,17 +78,17 @@ def get_fwd_fastqs(dir: str = "../data"):
         str: newline-separated string of forward reads files
     """
     if fastq_files := glob(str(f"{dir}/**/*.fastq.gz"), recursive=True):
-        LOGGER.debug(
+        log.debug(
             f"Found the following fastq files in the {dir} folder:\n{fastq_files}"
         )
         pattern = get_read_pattern(fastq_files[0])
         fwd_fastqs_list = glob(str(f"{dir}/**/*{pattern}"), recursive=True)
         fwd_fastqs_list.sort()
         fwd_fastqs = "\n".join(fwd_fastqs_list)
-        LOGGER.debug(f"Returning the following fwd fastq files\n{fwd_fastqs}")
+        log.debug(f"Returning the following fwd fastq files\n{fwd_fastqs}")
         return fwd_fastqs
     else:
-        LOGGER.error(f"There are no fastq.gz files in the {dir} directory")
+        log.error(f"There are no fastq.gz files in the {dir} directory")
         return 0
 
 
@@ -98,9 +102,9 @@ def get_read_direction(filepath: str):
         str: Returns 1 if file is detected as forward, 2 otherwise
     """
     filename = Path(filepath).name
-    LOGGER.debug(f"filename: {filename}")
+    log.debug(f"filename: {filename}")
     if "_" not in filename:
-        LOGGER.warning(
+        log.warning(
             "You might be trying to use a single end reads file as a paired"
             + f" end reads file. Current input: {filepath}"
         )
@@ -121,14 +125,14 @@ def get_read_pattern(filename: str, direction: str = "1"):
         corresponding to the direction you specified in 'direction'
     """
     if "_" not in filename and "/" in filename:
-        LOGGER.warning(
+        log.warning(
             f"{filename} might be a single end reads file. The pattern being returned"
             + " is the entire filename"
         )
         return Path(filename).name
     direction_complement = "2" if direction == "1" else "1"
     pattern = filename.split("_")[-1]
-    LOGGER.debug(f"pattern: {pattern}")
+    log.debug(f"pattern: {pattern}")
     return (
         pattern
         if direction in pattern
@@ -157,15 +161,15 @@ def get_prefix(filename: str, split_position: str = "-1"):
     # SampleName_S1_R1_001.fastq.gz for merged lanes.
 
     if match := re.search(r"(.*?)_S\d+_.*R\d_001.fastq.gz", filename):
-        LOGGER.debug(f"match: {match}\ngroup 1 (prefix): {match.group(1)}")
+        log.debug(f"match: {match}\ngroup 1 (prefix): {match.group(1)}")
         return match.group(1)
 
     if "_" in filename and int(split_position):
         prefix_list = filename.split("_")[: int(split_position)]
-        LOGGER.debug(f"prefix_list: {prefix_list}")
+        log.debug(f"prefix_list: {prefix_list}")
         return "_".join(prefix_list)
 
-    LOGGER.warning(f"A prefix was not able to be determined for {filename}")
+    log.warning(f"A prefix was not able to be determined for {filename}")
     return 0
 
 
@@ -191,11 +195,11 @@ def get_rev_file(
         name_only = True if "true" in str(name_only).lower() else False
     if not pattern_fwd:
         pattern_fwd = get_read_pattern(fwd_file, "1")
-        LOGGER.debug(f"Autodetected forward pattern: {pattern_fwd}")
+        log.debug(f"Autodetected forward pattern: {pattern_fwd}")
     if not pattern_rev:
         pattern_rev = get_read_pattern(fwd_file, "2")
-        LOGGER.debug(f"Autodetected reverse pattern: {pattern_rev}")
-    LOGGER.debug(
+        log.debug(f"Autodetected reverse pattern: {pattern_rev}")
+    log.debug(
         f"fwd_file: {fwd_file}\nWill replace {pattern_fwd}" + f" with {pattern_rev}"
     )
     return (
