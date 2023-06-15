@@ -74,7 +74,7 @@ from co_tools import co_fastq
 
 ---
 
-### Logging
+## Logging
 
 There is a pre-configured logger that will work seamlessly in bash and/or python and output to the same log file. The format for each log entry is:
 
@@ -101,9 +101,19 @@ The required argument is the log message and the optional argument is for the de
 
 e.g. `set_log_msg "logging is fun" "INFO"`
 
-### Setting the log level for LOGGER
+---
+## Configuring the LOGGER
 
-Create an environment variable called `CO_LOG_LEVEL` and assign it one of the 5 available log levels. The default value is `WARNING`. Ideally you will assign the value to `CO_LOG_LEVEL` in your runscript just before the entry script is executed.
+
+### Activating the LOGGER 
+
+The Code Ocean LOGGER is turned off by default. To turn it on, create an environment variable called `CO_LOG` and assign a value of `true`.
+
+eg. `export CO_LOG=true`
+
+### Assigning the log level
+
+Create an environment variable called `CO_LOG_LEVEL` and assign it one of the 5 available log levels. The default value is `WARNING`. One method can be to assign the value to `CO_LOG_LEVEL` in your runscript just before the entry script is executed.
 
 e.g.
 ```
