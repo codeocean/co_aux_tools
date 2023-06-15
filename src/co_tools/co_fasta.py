@@ -1,5 +1,7 @@
+import re
 from glob import glob
 from pathlib import Path
+from pathlib import PurePath
 
 # local imports
 from .get_logger import LOGGER
@@ -8,11 +10,14 @@ FASTA_EXTENSIONS = [".fa", ".fna", ".ffn", ".frn", ".fasta", ".faa"]
 ALL_SUFFIXES = FASTA_EXTENSIONS + [".gz", ".bgz"]
 
 
-def find_extension(input_file: Path):
-    suffixes = input_file.suffixes
-    LOGGER.debug(f"Suffixes {suffixes}")
-    mismatch_suffix = set(suffixes) - set(ALL_SUFFIXES)
-    if len(mismatch_suffix):  # check that all suffixes are allowed
+def find_extension(input_file: str):
+    if isinstance(input_file, PurePath):
+        LOGGER.error(f"input_path {input_file} must not be a pathlib.PurePath object")
+        return ""
+    input_file_ext = re.sub(r".*\.f", r"\.f", input_file)
+    suffixes = Path(input_file_ext).suffixes
+    LOGGER.debug(f"Suffixes: {suffixes}")
+    if mismatch_suffix := set(suffixes) - set(ALL_SUFFIXES):
         LOGGER.info(f"Suffix {mismatch_suffix} not allowed.")
     else:
         matching_suffix = set(suffixes) & set(FASTA_EXTENSIONS)
@@ -22,15 +27,18 @@ def find_extension(input_file: Path):
     return ""
 
 
-def find_fasta_file(input_path: Path):
-    input_files = glob(str(input_path / "**/*.f*"), recursive=True)
+def find_fasta_file(input_path: str):
+    if isinstance(input_path, PurePath):
+        LOGGER.error(f"input_path {input_path} must not be a pathlib.PurePath object")
+        return ""
+    input_files = glob(f"{input_path}/**/*.f*", recursive=True)
     LOGGER.debug(f"Found possible fasta matches: {input_files}")
 
     matched_files = []
 
     for input_file in input_files:
-        LOGGER.debug(f"Input file {input_file}")
-        fasta_file = find_extension(Path(input_file))
+        LOGGER.debug(f"Input file: {input_file}")
+        fasta_file = find_extension(input_file)
         if fasta_file:
             matched_files.append(fasta_file)
     if len(matched_files) > 1:

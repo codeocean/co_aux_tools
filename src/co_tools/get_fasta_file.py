@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-import argparse
 import sys
 from pathlib import Path
 
@@ -14,11 +13,11 @@ def main(argv=sys.argv):
             "You failed to provide a search directory."
             + " Will continue by searching in ../data"
         )
-        print(find_fasta_file(Path("../data")))
+        print(find_fasta_file("../data"))
         return 0
     else:
         LOGGER.info(f"Input dir to search for fasta file: {sys.argv[1]}")
-        print(find_fasta_file(Path(sys.argv[1])))
+        print(find_fasta_file(sys.argv[1]))
         return 0
 
 

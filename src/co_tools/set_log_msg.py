@@ -8,8 +8,7 @@ from .get_logger import LOGGER
 
 def main(argv=sys.argv):
     if len(argv) == 1:
-        LOGGER.error("You failed to provide a log message")
-        sys.exit("You failed to provide a log message")
+        sys.exit(LOGGER.error("You failed to provide a log message"))
     elif len(argv) == 2:
         return print_log_msg(argv[1])
     return print_log_msg(argv[1], argv[2])
