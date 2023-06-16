@@ -14,7 +14,7 @@ authors = [
 maintainers = [
     { name="Frank Zappulla", email="frank@codeocean.com" }
 ]
-description = "A suite of convenience tools for working with sequencing files and Code Ocean capsules"
+description = "A suite of convenience tools for working with sequencing files and Code Ocean capsules."
 readme = "README.md"
 requires-python = ">=3.8"
 classifiers = [
