@@ -3,7 +3,7 @@ from glob import glob
 from multiprocessing import cpu_count
 from pathlib import Path
 
-if os.getenv("CO_LOG").lower() == "true":
+if os.environ.get("CO_LOG").lower() == "true":
     from .get_logger import LOGGER
 
     log = LOGGER
@@ -12,8 +12,8 @@ else:
 
     log = logging.getLogger(__name__)
 
-co_cpus = os.getenv("CO_CPUS")
-aws_batch_job_id = os.getenv("AWS_BATCH_JOB_ID")
+co_cpus = os.environ.get("CO_CPUS")
+aws_batch_job_id = os.environ.get("AWS_BATCH_JOB_ID")
 
 
 def get_cpu_limit(co_cpus=co_cpus, aws_batch_job_id=aws_batch_job_id):
@@ -106,7 +106,7 @@ def is_pipeline():
     Returns:
         int: Returns 1 if in a pipeline, 0 otherwise.
     """
-    return 1 if bool(os.getenv("AWS_BATCH_JOB_ID")) else 0
+    return 1 if bool(os.environ.get("AWS_BATCH_JOB_ID")) else 0
 
 
 def print_log_msg(msg=None, level="WARNING"):
