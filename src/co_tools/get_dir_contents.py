@@ -4,7 +4,7 @@ import sys
 
 from .co_utils import get_dir_contents
 
-if os.environ.get("CO_LOG").lower() == "true":
+if os.environ.get("CO_LOG", "false").lower() == "true":
     from .get_logger import LOGGER
 
     log = LOGGER

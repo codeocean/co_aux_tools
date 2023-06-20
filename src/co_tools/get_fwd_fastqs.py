@@ -4,7 +4,7 @@ import sys
 
 from .co_fastq import get_fwd_fastqs
 
-if os.environ.get("CO_LOG").lower() == "true":
+if os.environ.get("CO_LOG", "false").lower() == "true":
     from .get_logger import LOGGER
 
     log = LOGGER

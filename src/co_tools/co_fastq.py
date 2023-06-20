@@ -3,7 +3,7 @@ import re
 from glob import glob
 from pathlib import Path
 
-if os.environ.get("CO_LOG").lower() == "true":
+if os.environ.get("CO_LOG", "false").lower() == "true":
     from .get_logger import LOGGER
 
     log = LOGGER
