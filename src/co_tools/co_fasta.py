@@ -1,8 +1,7 @@
 import os
 import re
 from glob import glob
-from pathlib import Path
-from pathlib import PurePath
+from pathlib import Path, PurePath
 
 if os.environ.get("CO_LOG", "false").lower() == "true":
     from .get_logger import LOGGER

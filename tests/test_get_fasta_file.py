@@ -1,5 +1,7 @@
 from pathlib import Path
-from src.co_tools.co_fasta import find_extension, find_fasta_file
+
+from src.co_tools.co_fasta import find_extension
+
 
 # Tests for find_extension
 def test_generic_fasta():
