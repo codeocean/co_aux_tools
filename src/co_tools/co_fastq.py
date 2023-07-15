@@ -67,26 +67,29 @@ def get_fastq_pair(dir_path: str = "../data"):
         return 0
 
 
-def get_fwd_fastqs(dir: str = "../data"):
-    """Returns all the forward reads files in ascending alphabetical order
+def get_fastqs(fwd: str = "", dir: str = "../data"):
+    """Returns all the reads files in ascending alphabetical order
 
     Args:
         dir (str, optional): The folder where all the reads file are.
         Defaults to "../data".
 
     Returns:
-        str: newline-separated string of forward reads files
+        str: newline-separated string of reads files
     """
+    if not dir:
+        dir = "../data"
     if fastq_files := glob(str(f"{dir}/**/*.fastq.gz"), recursive=True):
         log.debug(
             f"Found the following fastq files in the {dir} folder:\n{fastq_files}"
         )
-        pattern = get_read_pattern(fastq_files[0])
-        fwd_fastqs_list = glob(str(f"{dir}/**/*{pattern}"), recursive=True)
-        fwd_fastqs_list.sort()
-        fwd_fastqs = "\n".join(fwd_fastqs_list)
-        log.debug(f"Returning the following fwd fastq files\n{fwd_fastqs}")
-        return fwd_fastqs
+        if "true" in fwd.lower() or "fwd" in fwd.lower():
+            pattern = get_read_pattern(fastq_files[0])
+            fastq_files = glob(str(f"{dir}/**/*{pattern}"), recursive=True)
+        fastq_files.sort()
+        fastqs = "\n".join(fastq_files)
+        log.debug(f"Returning the following fastq files\n{fastqs}")
+        return fastqs
     else:
         log.error(f"There are no fastq.gz files in the {dir} directory")
         return 0

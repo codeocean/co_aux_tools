@@ -1,4 +1,3 @@
-import subprocess
 from glob import glob
 
 import pytest

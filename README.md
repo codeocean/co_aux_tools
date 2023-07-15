@@ -36,7 +36,7 @@ The following commands will work at the terminal or in a bash script
     - get_dir_contents
     - get_fasta_file
     - get_fastq_pair
-    - get_fwd_fastqs
+    - get_fastqs
     - get_groups
     - get_pipeline_confirm
     - get_read_direction
@@ -66,7 +66,7 @@ from co_tools import co_fastq
 **co_fastq**
 
     - get_fastq_pair()
-    - get_fwd_fastqs()
+    - get_fastqs()
     - get_read_direction()
     - get_read_pattern()
     - get_prefix()

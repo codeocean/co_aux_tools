@@ -57,7 +57,7 @@ def get_dir_contents(dir: str = "../data"):
     return 0
 
 
-def get_groups(filename: str = "../data/sample_sheet.csv"):
+def get_groups(filename: str = "../data/sample_sheet.csv", test: bool = False):
     """This function returns all the groups in a .csv
 
     Args:
@@ -69,9 +69,10 @@ def get_groups(filename: str = "../data/sample_sheet.csv"):
     Returns:
         str: comma-separated string of groups in ascending alphabetical order.
     """
-    # if not filename:
-    #     sample_sheet = "../data/sample_sheet.csv"
-    if Path(filename).is_file():
+    if not filename:
+        log.error(f"Improper filename given for sample_sheet. filename={filename}")
+        return 1
+    elif Path(filename).is_file():
         log.debug(f"{filename} is a file.")
         sample_sheet = filename
     else:
@@ -83,11 +84,12 @@ def get_groups(filename: str = "../data/sample_sheet.csv"):
             sample_sheet = files_found[0]
         else:
             log.warning(f"No sample sheet found for '{filename}'")
-            return 0
+            sample_sheet = filename
     groups_set = set()
     try:
         with open(f"{sample_sheet}", "r") as infile:
             lines = infile.readlines()
+            log.debug(f"lines: {lines}")
             for line in lines:
                 line = line.strip()
                 line_group = line.split(",")[0]
