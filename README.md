@@ -96,11 +96,11 @@ e.g. `LOGGER.info("logging is fun")`
 
 **Bash**
 
-To use the logger in a bash script, just use the `set_log_msg` command. It takes 1 required argument and an additional optional argument.
+To use the logger in a bash script, just use the `set_log_msg` command. It takes 1 required argument and an additional optional flag `--log-level`
 
-The required argument is the log message and the optional argument is for the desired log level.
+The required argument is the log message and the optional flag is for the desired log level. The default log level is `"WARNING"` when no flag is used.
 
-e.g. `set_log_msg "logging is fun" "INFO"`
+e.g. `set_log_msg "logging is fun" --log-level "INFO"`
 
 ---
 ## Configuring the LOGGER
@@ -110,22 +110,22 @@ e.g. `set_log_msg "logging is fun" "INFO"`
 
 The Code Ocean LOGGER is turned off by default. To turn it on, create an environment variable called `CO_LOG` and assign a value of `true`.
 
-eg. `export CO_LOG=true`
+eg. `export CO_LOG="true"`
 
 ### Assigning the log level
 
-Create an environment variable called `CO_LOG_LEVEL` and assign it one of the 5 available log levels. The default value is `WARNING`. One method can be to assign the value to `CO_LOG_LEVEL` in your runscript just before the entry script is executed.
+Create an environment variable called `CO_LOG_LEVEL` and assign it one of the 5 available log levels. The default value is `WARNING`. One method can be to assign the value to `CO_LOG_LEVEL` in your runscript (`run`) just before the entry script is executed.
 
 e.g.
 ```
-export CO_LOG=true
+export CO_LOG="true"
 export CO_LOG_LEVEL="INFO"
 python -u main.py "$@"
 ```
 or
 
 ```
-export CO_LOG=true
+export CO_LOG="true"
 export CO_LOG_LEVEL="INFO"
 bash main.sh "$@"
 ```
