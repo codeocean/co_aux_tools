@@ -48,6 +48,6 @@ def main(
         Defaults to 1
     """
     log.debug(f"args: {sys.argv}")
-    split_pos = int(split_pos) * -1
+    split_pos = int(split_pos) * -1 if split_pos else 0
     log.debug(f"split_pos={split_pos}")
     typer.echo(get_prefix(filename=file, split_position=str(split_pos)))
