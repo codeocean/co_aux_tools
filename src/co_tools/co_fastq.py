@@ -175,6 +175,13 @@ def get_prefix(filename: str, split_position: str = "-1"):
         prefix_list = filename.split("_")[: int(split_position)]
         log.debug(f"prefix_list: {prefix_list}")
         return "_".join(prefix_list)
+    elif not int(split_position):
+        log.warning(
+            f"If your filename includes periods ('.') then this "
+            + "prefix may not be what you intended it to be."
+        )
+        log.info(f"Returning prefix {filename.split('.')[0]}")
+        return filename.split(".")[0]
 
     log.warning(f"A prefix was not able to be determined for {filename}")
     return 0
