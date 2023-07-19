@@ -1,6 +1,9 @@
-#!/usr/bin/env python
 import os
 import sys
+from typing import Optional
+
+import typer
+from typing_extensions import Annotated
 
 from .co_utils import get_dir_contents
 
@@ -14,21 +17,22 @@ else:
     log = logging.getLogger(__name__)
 
 
-def main(argv=sys.argv):
+app = typer.Typer()
+
+
+@app.command()
+def main(
+    dir: Annotated[
+        Optional[str], typer.Option(help="The directory to list the contents of")
+    ] = "../data"
+):
+    """List all the files and folders in a a particular directory at a given point in your code
+
+    Args:
+        dir : The directory to list the contents of.
+    """
     log.debug(f"args: {sys.argv}")
-    if len(argv) > 1:
-        print(
-            f"*** These are the current files in the {argv[1]} directory\n"
-            + f"{get_dir_contents(argv[1])}"
-        )
-        return 0
-    print(
-        "*** These are the current files in the ../data directory\n"
-        + f"{get_dir_contents()}"
+    typer.echo(
+        f"*** These are the current files in the {dir} directory\n"
+        + f"{get_dir_contents(dir)}"
     )
-    return 0
-
-
-if __name__ == "__main__":
-    log.debug(f"args: {sys.argv}")
-    sys.exit(main(sys.argv))

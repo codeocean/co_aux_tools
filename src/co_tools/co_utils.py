@@ -57,7 +57,7 @@ def get_dir_contents(dir: str = "../data"):
     return 0
 
 
-def get_groups(filename: str = "../data/sample_sheet.csv", test: bool = False):
+def get_groups(filename: str = "../data/sample_sheet.csv", dir: str = ""):
     """This function returns all the groups in a .csv
 
     Args:
@@ -76,11 +76,18 @@ def get_groups(filename: str = "../data/sample_sheet.csv", test: bool = False):
         log.debug(f"{filename} is a file.")
         sample_sheet = filename
     else:
-        log.debug(f"type for {filename}: {type(filename)}")
-        if files_found := glob(str(f"../data/{filename}"), recursive=True):
+        log.debug(
+            f"{filename} is not a file. Will search for file. Type: {type(filename)}"
+        )
+        if "/" in filename:
+            filename = filename.split("/")[-1]
+            log.debug(f"filename: {filename}")
+        if files_found := glob(
+            str(f"{Path(dir).resolve()}/{filename}"), recursive=True
+        ):
             if len(files_found) > 1:
                 log.warning(f"Found multiple sample_sheets. Will use {files_found[0]}")
-            log.debug(f"Searching found the following sample sheet(s): {files_found}")
+            log.debug(f"Found the following sample sheet(s): {files_found}")
             sample_sheet = files_found[0]
         else:
             log.warning(f"No sample sheet found for '{filename}'")

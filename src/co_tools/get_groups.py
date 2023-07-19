@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 import os
 import sys
+from typing import Optional
+
+import typer
+from typing_extensions import Annotated
 
 from .co_utils import get_groups
 
@@ -14,15 +18,35 @@ else:
     log = logging.getLogger(__name__)
 
 
-def main(argv=sys.argv):
-    log.debug(f"args: {sys.argv}")
-    if len(argv) > 1:
-        print(get_groups(argv[1]))
-        return 0
-    print(get_groups())
-    return 0
+app = typer.Typer()
 
 
-if __name__ == "__main__":
+@app.command()
+def main(
+    filename: Annotated[
+        Optional[str],
+        typer.Option(
+            help="The name of the sample sheet file to search for. "
+            + "If this flag is a path to a file that exists, then that "
+            + "file will be used"
+        ),
+    ] = "../data/sample_sheet.csv",
+    dir: Annotated[
+        Optional[str],
+        typer.Option(help="The directory to search in for the sample sheet file"),
+    ] = "../data",
+):
+    """Return all the groups from a sample_sheet.csv file as a comma separated
+    string in alphabetical order.
+
+    Args:
+
+        filename : The name of the sample sheet file to search for. If this
+        flag is a path to a file that exists, then that file will be used
+        Defaults to "../data/sample_sheet.csv"
+
+        dir : The directory to search in for the sample sheet file
+        Defaults to "../data"
+    """
     log.debug(f"args: {sys.argv}")
-    sys.exit(main(sys.argv))
+    typer.echo(get_groups(filename=filename, dir=dir))

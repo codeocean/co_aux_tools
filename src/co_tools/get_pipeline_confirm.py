@@ -1,14 +1,12 @@
-#!/usr/bin/env python
-import sys
+import typer
 
-# local imports
 from .co_utils import is_pipeline
 
+app = typer.Typer()
 
+
+@app.command()
 def main():
-    print(is_pipeline())
-    return 0
-
-
-if __name__ == "__main__":
-    sys.exit(main())
+    """Returns '1' if the current computation is in a pipeline utilizing AWS Batch.
+    Returns '0' otherwise."""
+    typer.echo(is_pipeline())

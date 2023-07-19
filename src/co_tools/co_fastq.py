@@ -25,18 +25,21 @@ def get_fastq_pair(dir_path: str = "../data"):
     """
     total_dirs = 0
     for base, dirs, files in os.walk(dir_path):
+        log.debug(f"Found the following directories {dirs}")
         for dir in dirs:
+            log.debug(f"Path to dir {Path(dir).resolve()}")
             total_dirs += 1
     if total_dirs != 2:
         log.error(
             f"The fastq files in {dir_path} are not properly configured"
             + " to use this function. There should be only 2 folders"
-            + " inside the data folder."
+            + f" inside the {dir_path} folder."
         )
         return 0
     prefix_dict, this_prefix = {}, None
     fwd, rev = None, None
-    for path in glob(str(f"{dir_path}/**/*.fastq.gz"), recursive=True):
+    for path in glob(str(f"{Path(dir_path).resolve()}/**/*.fastq.gz"), recursive=True):
+        log.debug(f"Will attempt to determine prefix for {path}")
         if prefix := get_prefix(path):
             if prefix in prefix_dict:
                 prefix_dict[prefix].append(path)
@@ -67,7 +70,7 @@ def get_fastq_pair(dir_path: str = "../data"):
         return 0
 
 
-def get_fastqs(fwd: str = "", dir: str = "../data"):
+def get_fastqs(fwd: bool = False, dir: str = "../data"):
     """Returns all the reads files in ascending alphabetical order
 
     Args:
@@ -83,7 +86,8 @@ def get_fastqs(fwd: str = "", dir: str = "../data"):
         log.debug(
             f"Found the following fastq files in the {dir} folder:\n{fastq_files}"
         )
-        if "true" in fwd.lower() or "fwd" in fwd.lower():
+        if fwd:
+            log.debug(f"fwd={fwd}")
             pattern = get_read_pattern(fastq_files[0])
             fastq_files = glob(str(f"{dir}/**/*{pattern}"), recursive=True)
         fastq_files.sort()
@@ -177,7 +181,10 @@ def get_prefix(filename: str, split_position: str = "-1"):
 
 
 def get_rev_file(
-    fwd_file: str, name_only=False, pattern_fwd: bool = False, pattern_rev: bool = False
+    fwd_file: str,
+    name_only: bool = False,
+    pattern_fwd: str = None,
+    pattern_rev: str = None,
 ):
     """_summary_
 
@@ -186,25 +193,23 @@ def get_rev_file(
         file for.
         name_only (bool, optional): Set to True if you want this function to
         return only the filename. Defaults to False.
-        pattern_fwd (bool, optional): Specify the pattern to replace.
-        Defaults to False.
-        pattern_rev (bool, optional): Specify the replacement pattern.
-        Defaults to False.
+        pattern_fwd (str, optional): Specify the pattern to replace.
+        Defaults to None.
+        pattern_rev (str, optional): Specify the replacement pattern.
+        Defaults to None.
 
     Returns:
         str: The reverse reads file
     """
-    if name_only:
-        name_only = True if "true" in str(name_only).lower() else False
+    # if name_only:
+    #     name_only = True if "true" in str(name_only).lower() else False
     if not pattern_fwd:
         pattern_fwd = get_read_pattern(fwd_file, "1")
         log.debug(f"Autodetected forward pattern: {pattern_fwd}")
     if not pattern_rev:
         pattern_rev = get_read_pattern(fwd_file, "2")
         log.debug(f"Autodetected reverse pattern: {pattern_rev}")
-    log.debug(
-        f"fwd_file: {fwd_file}\nWill replace {pattern_fwd}" + f" with {pattern_rev}"
-    )
+    log.info(f"fwd_file={fwd_file}. Will replace {pattern_fwd} with {pattern_rev}")
     return (
         Path(
             fwd_file.replace(

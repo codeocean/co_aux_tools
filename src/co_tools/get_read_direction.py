@@ -2,6 +2,9 @@
 import os
 import sys
 
+import typer
+from typing_extensions import Annotated
+
 from .co_fastq import get_read_direction
 
 if os.environ.get("CO_LOG", "false").lower() == "true":
@@ -14,14 +17,17 @@ else:
     log = logging.getLogger(__name__)
 
 
-def main(argv=sys.argv):
-    log.debug(f"args: {sys.argv}")
-    if len(argv) == 1:
-        sys.exit("You failed to provide a file name")
-    print(get_read_direction(argv[1]))
-    return 0
+app = typer.Typer()
 
 
-if __name__ == "__main__":
+@app.command()
+def main(file: Annotated[str, typer.Argument()]):
+    """Returns '1' if the file is detected as a forward reads file.
+    Returns '2' otherwise.
+
+    Args:
+        file: The name of the file to determine the read direction of.
+        This can be a path to a file.
+    """
     log.debug(f"args: {sys.argv}")
-    sys.exit(main(argv=sys.argv))
+    typer.echo(get_read_direction(filepath=file))

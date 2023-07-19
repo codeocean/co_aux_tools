@@ -1,6 +1,9 @@
-#!/usr/bin/env python
 import os
 import sys
+from typing import Optional
+
+import typer
+from typing_extensions import Annotated
 
 from .co_fastq import get_fastqs
 
@@ -14,22 +17,33 @@ else:
     log = logging.getLogger(__name__)
 
 
-def main(argv=sys.argv):
-    log.debug(f"args: {sys.argv}")
-    if len(argv) > 2:
-        log.info(f"Searching in {argv[2]} dir for files. fwd={argv[1]}")
-        print(get_fastqs(argv[1], argv[2]))
-        return 0
-    elif len(argv) > 1:
-        log.info(f"Searching in default dir for files. fwd={argv[1]}")
-        print(get_fastqs(argv[1]))
-        return 0
-    else:
-        log.info("Searching in default dir for complementary files")
-        print(get_fastqs())
-        return 0
+app = typer.Typer()
 
 
-if __name__ == "__main__":
+@app.command()
+def main(
+    dir: Annotated[
+        Optional[str],
+        typer.Option(help="The directory to search for fastq files in"),
+    ] = "../data",
+    fwd: Annotated[
+        Optional[bool],
+        typer.Option(help="Use this flag to return only the forward reads files"),
+    ] = False,
+):
+    """Find all fastq.gz files in a folder.
+
+    Args:
+
+        dir (str, optional): The directory to search for fastq files in.
+        Defaults '../data'
+
+        fwd (bool, optional): Used to return only forward reads files.
+        Defaults to --fwd
+
+    Returns:
+        newline separated list of absolute paths to fastq.gz files
+    """
     log.debug(f"args: {sys.argv}")
-    sys.exit(main(sys.argv))
+    log.debug(f"fwd={fwd}, dir={dir}")
+    typer.echo(get_fastqs(fwd=fwd, dir=dir))
