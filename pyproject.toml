@@ -7,14 +7,14 @@ packages = ["src/co_tools"]
 
 [project]
 name = "Code_Ocean_Aux_Tools"
-version = "1.0.3"
+version = "1.0.4"
 authors = [
   { name="Frank Zappulla", email="frank@codeocean.com" },
 ]
 maintainers = [
     { name="Frank Zappulla", email="frank@codeocean.com" }
 ]
-description = "A suite of convenience tools for working with sequencing files and Code Ocean capsules."
+description = "A suite of convenience tools for working with common bioinformatics files in Code Ocean capsules and pipelines."
 readme = "README.md"
 requires-python = ">=3.8"
 classifiers = [
@@ -24,18 +24,18 @@ classifiers = [
 ]
 
 [project.scripts]
-get_cpu_count = "co_tools.get_cpu_count:main"
-get_dir_contents = "co_tools.get_dir_contents:main"
-get_fasta_file = "co_tools.get_fasta_file:main"
-get_fastq_pair = "co_tools.get_fastq_pair:main"
-get_fastqs = "co_tools.get_fastqs:main"
-get_groups = "co_tools.get_groups:main"
-get_pipeline_confirm = "co_tools.get_pipeline_confirm:main"
-get_read_direction = "co_tools.get_read_direction:main"
-get_read_pattern = "co_tools.get_read_pattern:main"
-get_read_prefix = "co_tools.get_read_prefix:main"
-get_rev_file = "co_tools.get_rev_file:main"
-set_log_msg = "co_tools.set_log_msg:main"
+get_cpu_count = "co_tools.get_cpu_count:app"
+get_dir_contents = "co_tools.get_dir_contents:app"
+get_fasta_file = "co_tools.get_fasta_file:app"
+get_fastq_pair = "co_tools.get_fastq_pair:app"
+get_fastqs = "co_tools.get_fastqs:app"
+get_groups = "co_tools.get_groups:app"
+get_pipeline_confirm = "co_tools.get_pipeline_confirm:app"
+get_read_direction = "co_tools.get_read_direction:app"
+get_read_pattern = "co_tools.get_read_pattern:app"
+get_read_prefix = "co_tools.get_read_prefix:app"
+get_rev_file = "co_tools.get_rev_file:app"
+set_log_msg = "co_tools.set_log_msg:app"
 
 [project.urls]
 "Homepage" = "https://github.com/codeocean/co_aux_tools"

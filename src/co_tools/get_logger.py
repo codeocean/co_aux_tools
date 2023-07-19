@@ -105,3 +105,6 @@ LOGGER = None
 
 if not LOGGER:
     LOGGER = generate_logger()
+    LOGGER.debug(
+        f"co_computation_id={co_computation_id} aws_batch_job_id={aws_batch_job_id}"
+    )

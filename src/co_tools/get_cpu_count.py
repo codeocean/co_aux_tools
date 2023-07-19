@@ -1,14 +1,11 @@
-#!/usr/bin/env python
-import sys
+import typer
 
-# local imports
 from .co_utils import get_cpu_limit
 
+app = typer.Typer()
 
+
+@app.command()
 def main():
-    print(get_cpu_limit())
-    return 0
-
-
-if __name__ == "__main__":
-    sys.exit(main())
+    """This function returns an integer corresponding to the number of cores available"""
+    typer.echo(get_cpu_limit())

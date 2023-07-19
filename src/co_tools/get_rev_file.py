@@ -1,6 +1,9 @@
-#!/usr/bin/env python
 import os
 import sys
+from typing import Optional
+
+import typer
+from typing_extensions import Annotated
 
 from .co_fastq import get_rev_file
 
@@ -14,18 +17,58 @@ else:
     log = logging.getLogger(__name__)
 
 
-def main(argv=sys.argv):
-    log.debug(f"args: {sys.argv}")
-    if len(argv) == 1:
-        sys.exit(log.error("You failed to provide a filename"))
-    elif len(argv) == 2:
-        print(get_rev_file(argv[1]))
-        return 0
-    else:
-        print(get_rev_file(argv[1], argv[2]))
-        return 0
+app = typer.Typer()
 
 
-if __name__ == "__main__":
+@app.command()
+def main(
+    fwd_file: Annotated[
+        str,
+        typer.Argument(
+            help="The filename or path to a file to determine the reverse "
+            + "filename from."
+        ),
+    ],
+    name_only: Annotated[
+        Optional[bool],
+        typer.Option(help="Use this flag to return the filename only"),
+    ] = False,
+    pattern_fwd: Annotated[
+        Optional[str],
+        typer.Option(help="The forward pattern to replace."),
+    ] = None,
+    pattern_rev: Annotated[
+        Optional[str],
+        typer.Option(help="The reverse pattern that will replace the forward pattern."),
+    ] = None,
+):
+    """Returns the reverse paired-end reads file of an input forward reads file
+
+    Args:
+
+        fwd_file : The filename or path to a file to determine the reverse filename from.
+
+        name_only : Use this flag to return the filename only
+        Defaults to False
+
+        pattern_fwd : The forward pattern to replace.
+        Defaults to None
+
+        pattern_rev : The reverse pattern that will replace the forward pattern.
+        Defaults to None
+    """
     log.debug(f"args: {sys.argv}")
-    sys.exit(main(sys.argv))
+    if (pattern_fwd and not pattern_rev) or (not pattern_fwd and pattern_rev):
+        raise typer.Exit(
+            "You cannot use only one of the --pattern-fwd or --pattern-rev "
+            + "flage. You must use both the --pattern-fwd and --pattern-rev "
+            + "flags or use neither."
+        )
+    typer.echo(
+        get_rev_file(
+            fwd_file=fwd_file,
+            name_only=name_only,
+            pattern_fwd=pattern_fwd,
+            pattern_rev=pattern_rev,
+        )
+    )

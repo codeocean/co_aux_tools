@@ -1,6 +1,9 @@
-#!/usr/bin/env python
 import os
 import sys
+from typing import Optional
+
+import typer
+from typing_extensions import Annotated
 
 from .co_fastq import get_read_pattern
 
@@ -14,17 +17,37 @@ else:
     log = logging.getLogger(__name__)
 
 
-def main(argv=sys.argv):
-    log.debug(f"args: {sys.argv}")
-    if len(argv) == 1:
-        sys.exit(log.error("You failed to provide a filename and direction"))
-    elif len(argv) == 2:
-        print(get_read_pattern(argv[1]))
-        return 0
-    print(get_read_pattern(argv[1], argv[2]))
-    return 0
+app = typer.Typer()
 
 
-if __name__ == "__main__":
+@app.command()
+def main(
+    file: Annotated[
+        str,
+        typer.Argument(
+            help="The filename or path to a file to determine the pattern from"
+        ),
+    ],
+    fwd: Annotated[
+        Optional[bool],
+        typer.Option(
+            "--fwd/--rev",
+            help="Use this flag to return the forward or reverse reads files",
+        ),
+    ] = True,
+):
+    """Returns the pattern in the filename that is shared with all sequencing
+    files for a given direction based on the --fwd or --rev flasgs.
+    e.g. 'gsm123_456_R1.fastq.gz' will return 'R1.fastq.gz'
+
+    Args:
+
+        file : The filename or path to a file to determine the pattern from
+
+        --fwd : Use this flag to return the forward reads file pattern
+
+        --rev : Use this flag to return the reverse reads file pattern
+    """
     log.debug(f"args: {sys.argv}")
-    sys.exit(main(sys.argv))
+    direction = "1" if fwd else "2"
+    typer.echo(get_read_pattern(filename=file, direction=direction))
