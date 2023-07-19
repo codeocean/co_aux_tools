@@ -37,7 +37,7 @@ def main(
     ] = True,
 ):
     """Returns the pattern in the filename that is shared with all sequencing
-    files for a given direction based on the --fwd or --rev flasgs.
+    files for a given direction based on the --fwd or --rev flags.
     e.g. 'gsm123_456_R1.fastq.gz' will return 'R1.fastq.gz'
 
     Args:
