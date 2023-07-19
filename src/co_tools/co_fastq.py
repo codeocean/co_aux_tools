@@ -17,7 +17,7 @@ def get_fastq_pair(dir_path: str = "../data"):
     """This function returns a pair of paired-end reads files
 
     Args:
-        dir (str, optional): The folder where all the reads files are.
+        dir_path (str, optional): The folder where all the reads files are.
         Defaults to "../data".
 
     Returns:
