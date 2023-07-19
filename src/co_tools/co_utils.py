@@ -26,7 +26,7 @@ def get_cpu_limit(co_cpus=co_cpus, aws_batch_job_id=aws_batch_job_id):
     Returns:
         int: number of cores available for compute
     """
-    log.debug(f"co_cpus: {co_cpus} aws_batch_job_id: {aws_batch_job_id}")
+    log.debug(f"co_cpus={co_cpus} aws_batch_job_id={aws_batch_job_id}")
     if co_cpus:
         return co_cpus
     if aws_batch_job_id:
@@ -37,7 +37,7 @@ def get_cpu_limit(co_cpus=co_cpus, aws_batch_job_id=aws_batch_job_id):
         cfs_period_us = int(fp.read())
     container_cpus = cfs_quota_us // cfs_period_us
     # For physical machine, the `cfs_quota_us` could be '-1'
-    log.debug(f"container_cpus: {container_cpus} cpu_count(): {cpu_count()}")
+    log.debug(f"container_cpus={container_cpus} cpu_count()={cpu_count()}")
     return cpu_count() if container_cpus < 1 else container_cpus
 
 
@@ -81,7 +81,7 @@ def get_groups(filename: str = "../data/sample_sheet.csv", dir: str = ""):
         )
         if "/" in filename:
             filename = filename.split("/")[-1]
-            log.debug(f"filename: {filename}")
+            log.debug(f"filename={filename}")
         if files_found := glob(
             str(f"{Path(dir).resolve()}/{filename}"), recursive=True
         ):
@@ -96,7 +96,7 @@ def get_groups(filename: str = "../data/sample_sheet.csv", dir: str = ""):
     try:
         with open(f"{sample_sheet}", "r") as infile:
             lines = infile.readlines()
-            log.debug(f"lines: {lines}")
+            log.debug(f"lines={lines}")
             for line in lines:
                 line = line.strip()
                 line_group = line.split(",")[0]

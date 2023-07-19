@@ -22,7 +22,7 @@ def find_extension(input_file: str):
         return ""
     input_file_ext = re.sub(r".*\.f", r"\.f", input_file)
     suffixes = Path(input_file_ext).suffixes
-    log.debug(f"Suffixes: {suffixes}")
+    log.debug(f"Suffixes={suffixes}")
     if mismatch_suffix := set(suffixes) - set(ALL_SUFFIXES):
         log.info(f"Suffix {mismatch_suffix} not allowed.")
     else:
@@ -46,7 +46,7 @@ def find_fasta_file(input_path: str):
     matched_files = []
 
     for input_file in input_files:
-        log.debug(f"Input file: {input_file}")
+        log.debug(f"input_file={input_file}")
         fasta_file = find_extension(input_file)
         if fasta_file:
             matched_files.append(fasta_file)

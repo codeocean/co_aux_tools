@@ -11,7 +11,7 @@
 
 ### Background
 
-These convenience tools were created to make working with working with sequencing files more streamlined. Some of the tools in this package are only useful in the Code Ocean platform but many of these tools will be useful outside of the platform.
+These convenience tools were created to make working with working with files common in bioinformatics more streamlined. Some of the tools in this package are only useful in the Code Ocean platform but many of these tools will be useful outside of the platform.
 
 ---
 
@@ -23,14 +23,15 @@ Python>=3.8
 
 ### Installing *Code Ocean* Aux Tools in your capsule
 
-Add one line of code to your postintall script. At a later time this will be a package you can add to pip in the environment UI.
+Add the following package using pip in the environment UI `Code-Ocean-Aux-Tools`
+or use the following command at the terminal.
 
 `pip install Code-Ocean-Aux-Tools`
 
 ---
 ### List of  Available Commands
 
-The following commands will work at the terminal or in a bash script
+The following commands will work at the terminal or in a bash script. Each of these commands has a `--help` flag which provides more information about using the command.
 
     - get_cpu_count
     - get_dir_contents
@@ -117,12 +118,14 @@ Create an environment variable called `CO_LOG_LEVEL` and assign it one of the 5 
 
 e.g.
 ```
+export CO_LOG=true
 export CO_LOG_LEVEL="INFO"
 python -u main.py "$@"
 ```
 or
 
 ```
+export CO_LOG=true
 export CO_LOG_LEVEL="INFO"
 bash main.sh "$@"
 ```

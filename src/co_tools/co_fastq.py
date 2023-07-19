@@ -109,11 +109,11 @@ def get_read_direction(filepath: str):
         str: Returns 1 if file is detected as forward, 2 otherwise
     """
     filename = Path(filepath).name
-    log.debug(f"filename: {filename}")
+    log.debug(f"filename={filename}")
     if "_" not in filename:
         log.warning(
             "You might be trying to use a single end reads file as a paired"
-            + f" end reads file. Current input: {filepath}"
+            + f" end reads file. filepath={filepath}"
         )
         return 0
     return "1" if "1" in filename.split("_")[-1].split(".")[0] else "2"
@@ -168,12 +168,12 @@ def get_prefix(filename: str, split_position: str = "-1"):
     # SampleName_S1_R1_001.fastq.gz for merged lanes.
 
     if match := re.search(r"(.*?)_S\d+_.*R\d_001.fastq.gz", filename):
-        log.debug(f"match: {match}\ngroup 1 (prefix): {match.group(1)}")
+        log.debug(f"match={match} match.group(1)={match.group(1)}")
         return match.group(1)
 
     if "_" in filename and int(split_position):
         prefix_list = filename.split("_")[: int(split_position)]
-        log.debug(f"prefix_list: {prefix_list}")
+        log.debug(f"prefix_list={prefix_list}")
         return "_".join(prefix_list)
     elif not int(split_position):
         log.warning(
