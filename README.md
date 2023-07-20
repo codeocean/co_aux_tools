@@ -11,7 +11,7 @@
 
 ### Background
 
-These convenience tools were created to make working with working with files common in bioinformatics more streamlined. Some of the tools in this package are only useful in the Code Ocean platform but many of these tools will be useful outside of the platform.
+These convenience tools were created to make working with files common in bioinformatics more streamlined. Some of the tools in this package are only useful in the Code Ocean platform but many of these tools will be useful outside of the platform.
 
 ---
 
