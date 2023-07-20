@@ -1,5 +1,5 @@
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "typer"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
