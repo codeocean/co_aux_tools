@@ -28,6 +28,8 @@ or use the following command at the terminal.
 
 `pip install Code-Ocean-Aux-Tools`
 
+[Code-Ocean-Aux-Tools on Pypi](https://pypi.org/project/Code-Ocean-Aux-Tools/)
+
 ---
 ### List of  Available Commands
 
