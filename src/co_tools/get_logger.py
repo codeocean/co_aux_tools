@@ -64,7 +64,7 @@ def generate_logger(
     name: str = LOGGER_FILE_NAME,
     logging_level: str = DEFAULT_LEVEL,
     format_string: str = (
-        "[%(asctime)s - %(name)s - %(filename)s:%(lineno)s - %(levelname)s] "
+        "[%(asctime)s - %(filename)s:%(funcName)s:%(lineno)s - %(levelname)s] "
         + "%(message)s"
     ),
 ):
