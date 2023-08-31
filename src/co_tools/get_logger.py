@@ -1,11 +1,11 @@
 import logging
 import os
 
-LOGGER_DIR_PATH = "../results/co_logs"  # path to log directory
 co_computation_id = os.environ.get("CO_COMPUTATION_ID")
 aws_batch_job_id = os.environ.get("AWS_BATCH_JOB_ID")
 # name for the log file in ../results/co_logs
 LOGGER_FILE_NAME = co_computation_id if co_computation_id else aws_batch_job_id
+LOGGER_DIR_PATH = f"../results/co_logs_{LOGGER_FILE_NAME}"  # path to log directory
 ENV_LEVEL = os.environ.get("CO_LOG_LEVEL")
 DEFAULT_LEVEL = "WARNING" if not ENV_LEVEL else ENV_LEVEL.upper()
 
