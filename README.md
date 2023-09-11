@@ -130,7 +130,7 @@ bash main.sh "$@"
 
 ### Logging to the console
 
-By default, anytime a log message with level `error` or above is logged, the logger will create an entry in the log files with the log message and also print the log message to the console. If you would the logger to always print the log message to the console whenever the logger creates an entry in the log file, then create an environment variable called `CO_LOG_CONSOLE` and assign its value to `true`. 
+By default, anytime a log message with level `error` or above is logged, the logger will create an entry in the log files with the log message and also print the log message to the console. If you would like the logger to always print the log message to the console whenever the logger creates an entry in the log file, then create an environment variable called `CO_LOG_CONSOLE` and assign its value to `true`. 
 
 ```
 export CO_LOG_CONSOLE="true"
