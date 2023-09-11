@@ -3,7 +3,9 @@ from glob import glob
 from multiprocessing import cpu_count
 from pathlib import Path
 
-if os.environ.get("CO_LOG", "false").lower() == "true":
+LOG_LEVELS = ["debug", "info", "warning", "error", "critical"]
+
+if os.environ.get("CO_LOG_LEVEL", "false").lower() in LOG_LEVELS:
     from .get_logger import LOGGER
 
     log = LOGGER

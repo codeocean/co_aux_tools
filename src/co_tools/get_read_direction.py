@@ -6,8 +6,9 @@ import typer
 from typing_extensions import Annotated
 
 from .co_fastq import get_read_direction
+from .co_utils import LOG_LEVELS
 
-if os.environ.get("CO_LOG", "false").lower() == "true":
+if os.environ.get("CO_LOG_LEVEL", "false").lower() in LOG_LEVELS:
     from .get_logger import LOGGER
 
     log = LOGGER
