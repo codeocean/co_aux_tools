@@ -13,9 +13,9 @@ DEFAULT_LEVEL = "WARNING" if not ENV_LEVEL else ENV_LEVEL.upper()
 """
 Benefit to this logger is that it adds to each log entry a timestamp,
 project name, name of .py file, line number and the log level.
-[%(asctime)s - %(name)s - %(filename)s:%(lineno)s - %(levelname)s] %(message)s"
+[%(asctime)s - %(filename)s:%(funcName)s:%(lineno)s - %(levelname)s] %(message)s"
 How to use:
-import the logger -> from get_logger import LOGGER
+import the logger -> from co_tools.get_logger import LOGGER
 LOGGER.{mode}("string to log")
 How to modify log level:
 set the environment variable CO_LOG_LEVEL in the run script
