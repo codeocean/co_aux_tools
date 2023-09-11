@@ -3,10 +3,11 @@ import os
 
 co_computation_id = os.environ.get("CO_COMPUTATION_ID")
 aws_batch_job_id = os.environ.get("AWS_BATCH_JOB_ID")
+console_match_file = os.environ.get("CO_LOG_CONSOLE", "false").lower()
 # name for the log file in ../results/co_logs
 LOGGER_FILE_NAME = co_computation_id if co_computation_id else aws_batch_job_id
 LOGGER_DIR_PATH = f"../results/co_logs_{LOGGER_FILE_NAME}"  # path to log directory
-ENV_LEVEL = os.environ.get("CO_LOG_LEVEL")
+ENV_LEVEL = os.environ.get("CO_LOG_LEVEL", None)
 DEFAULT_LEVEL = "WARNING" if not ENV_LEVEL else ENV_LEVEL.upper()
 
 """
@@ -89,8 +90,11 @@ def generate_logger(
 
     file_handle = logging.FileHandler(f"{LOGGER_DIR_PATH}/{name}.log")
     file_handle.setLevel(logging_level)
+
     console_handler = logging.StreamHandler()
-    console_handler.setLevel(logging.ERROR)
+    console_handler.setLevel(
+        logging_level
+    ) if console_match_file == "true" else console_handler.setLevel(logging.ERROR)
     # create formatter and add it to the handlers
     log_format = logging.Formatter(format_string, "%Y-%m-%d %H:%M:%S")
     file_handle.setFormatter(log_format)

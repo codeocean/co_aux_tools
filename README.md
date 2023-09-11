@@ -81,7 +81,7 @@ from co_tools import co_fastq
 
 There is a pre-configured logger that will work seamlessly in bash and/or python and output to the same log file. The format for each log entry is:
 
-`[{Date} {Time} - {log name} - {filename}:{lineno} - {Log Level}] {log message}`
+`[{Date} {Time} - {filename}:{funcName}:{lineno} - {Log Level}] {log message}`
 
 The available [log levels](https://docs.python.org/3/howto/logging.html) are `debug`, `info`, `warning`, `error`, and `critical`
 
@@ -110,24 +110,30 @@ e.g. `set_log_msg "logging is fun" --log-level "INFO"`
 
 ### Activating the LOGGER 
 
-The Code Ocean LOGGER is turned off by default. To turn it on, create an environment variable called `CO_LOG` and assign a value of `true`.
-
-eg. `export CO_LOG="true"`
+The Code Ocean LOGGER is turned off by default. To turn it on, just assign the log level, described in the next section.
 
 ### Assigning the log level
 
-Create an environment variable called `CO_LOG_LEVEL` and assign it one of the 5 available log levels. The default value is `WARNING`. One method can be to assign the value to `CO_LOG_LEVEL` in your runscript (`run`) just before the entry script is executed.
+Create an environment variable called `CO_LOG_LEVEL` and assign it one of the 5 available [log levels](https://docs.python.org/3/howto/logging.html). One method can be to assign the value to `CO_LOG_LEVEL` in your runscript (`run`) just before the entry script is executed.
 
 e.g.
 ```
-export CO_LOG="true"
 export CO_LOG_LEVEL="INFO"
 python -u main.py "$@"
 ```
 or
 
 ```
-export CO_LOG="true"
+export CO_LOG_LEVEL="INFO"
+bash main.sh "$@"
+```
+
+### Logging to the console
+
+By default, anytime a log message with level `error` or above is logged, the logger will create an entry in the log files with the log message and also print the log message to the console. If you would the logger to always print the log message to the console whenever the logger creates an entry in the log file, then create an environment variable called `CO_LOG_CONSOLE` and assign its value to `true`. 
+
+```
+export CO_LOG_CONSOLE="true"
 export CO_LOG_LEVEL="INFO"
 bash main.sh "$@"
 ```
