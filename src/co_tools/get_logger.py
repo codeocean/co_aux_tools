@@ -3,7 +3,7 @@ import os
 
 co_computation_id = os.environ.get("CO_COMPUTATION_ID")
 aws_batch_job_id = os.environ.get("AWS_BATCH_JOB_ID")
-console_match_file = os.environ.get("CO_LOG_CONSOLE", "false").lower()
+log_type = os.environ.get("CO_LOG_TYPE", "false").lower()
 # name for the log file in ../results/co_logs
 LOGGER_FILE_NAME = co_computation_id if co_computation_id else aws_batch_job_id
 LOGGER_DIR_PATH = f"../results/co_logs_{LOGGER_FILE_NAME}"  # path to log directory
@@ -83,25 +83,19 @@ def generate_logger(
 
     logger = logging.getLogger(name)
     logger.setLevel(logging_level)
-
-    # create console handler with a higher log level
-
-    os.makedirs(LOGGER_DIR_PATH, exist_ok=True)
-
-    file_handle = logging.FileHandler(f"{LOGGER_DIR_PATH}/{name}.log")
-    file_handle.setLevel(logging_level)
-
-    console_handler = logging.StreamHandler()
-    console_handler.setLevel(
-        logging_level
-    ) if console_match_file == "true" else console_handler.setLevel(logging.ERROR)
-    # create formatter and add it to the handlers
     log_format = logging.Formatter(format_string, "%Y-%m-%d %H:%M:%S")
-    file_handle.setFormatter(log_format)
 
-    logger.addHandler(file_handle)
-    logger.addHandler(console_handler)
+    if log_type == "file" or log_type == "both":
+        os.makedirs(LOGGER_DIR_PATH, exist_ok=True)
+        file_handle = logging.FileHandler(f"{LOGGER_DIR_PATH}/{name}.log")
+        file_handle.setLevel(logging_level)
+        file_handle.setFormatter(log_format)
+        logger.addHandler(file_handle)
 
+    if log_type == "console" or log_type == "both":
+        console_handler = logging.StreamHandler()
+        console_handler.setLevel(logging_level)
+        logger.addHandler(console_handler)
     return logger
 
 

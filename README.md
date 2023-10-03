@@ -79,7 +79,7 @@ from co_tools import co_fastq
 
 ## Logging
 
-There is a pre-configured logger that will work seamlessly in bash and/or python and output to the same log file. The format for each log entry is:
+There is a pre-configured logger that will work seamlessly in bash and/or python and output to the same log file (when configured to output to a file). The format for each log entry is:
 
 `[{Date} {Time} - {filename}:{funcName}:{lineno} - {Log Level}] {log message}`
 
@@ -110,34 +110,36 @@ e.g. `set_log_msg "logging is fun" --log-level "INFO"`
 
 ### Activating the LOGGER 
 
-The Code Ocean LOGGER is turned off by default. To turn it on, just assign the log level, described in the next section.
+The Code Ocean LOGGER is turned off by default. To turn it on, create an environment variable called `CO_LOG_TYPE` and assign it one of `FILE`, `CONSOLE`, `BOTH`. If you do not create this environment variable to activate the logger, there will be no logging.
 
-### Assigning the log level
 
-Create an environment variable called `CO_LOG_LEVEL` and assign it one of the 5 available [log levels](https://docs.python.org/3/howto/logging.html). One method can be to assign the value to `CO_LOG_LEVEL` in your runscript (`run`) just before the entry script is executed.
+    - FILE - The logger will only output to a log file
+    - CONSOLE - The logger will only output to the console
+    - BOTH - The logger will output to both a log file and the console
+
 
 e.g.
 ```
+export CO_LOG_TYPE="FILE"
+```
+
+### Assigning the log level
+
+Create an environment variable called `CO_LOG_LEVEL` and assign it one of the 5 available [log levels](https://docs.python.org/3/howto/logging.html). The recommended method can be to assign the value to `CO_LOG_LEVEL` in your runscript (`run`) just before the entry script is executed.
+
+e.g.
+```
+export CO_LOG_TYPE="FILE"
 export CO_LOG_LEVEL="INFO"
 python -u main.py "$@"
 ```
 or
 
 ```
+export CO_LOG_TYPE="FILE"
 export CO_LOG_LEVEL="INFO"
 bash main.sh "$@"
 ```
-
-### Logging to the console
-
-By default, anytime a log message with level `error` or above is logged, the logger will create an entry in the log files with the log message and also print the log message to the console. If you would like the logger to always print the log message to the console whenever the logger creates an entry in the log file, then create an environment variable called `CO_LOG_CONSOLE` and assign its value to `true`. 
-
-```
-export CO_LOG_CONSOLE="true"
-export CO_LOG_LEVEL="INFO"
-bash main.sh "$@"
-```
-
 
 ---
 
