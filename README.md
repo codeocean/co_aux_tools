@@ -125,7 +125,7 @@ export CO_LOG_TYPE="FILE"
 
 ### Assigning the log level
 
-Create an environment variable called `CO_LOG_LEVEL` and assign it one of the 5 available [log levels](https://docs.python.org/3/howto/logging.html). The recommended method can be to assign the value to `CO_LOG_LEVEL` in your runscript (`run`) just before the entry script is executed.
+Create an environment variable called `CO_LOG_LEVEL` and assign it one of the 5 available [log levels](https://docs.python.org/3/howto/logging.html). The recommended method is to assign the value to `CO_LOG_LEVEL` in your runscript (`run`) just before the entry script is executed.
 
 e.g.
 ```
