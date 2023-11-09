@@ -95,6 +95,7 @@ def generate_logger(
     if log_type == "console" or log_type == "both":
         console_handler = logging.StreamHandler()
         console_handler.setLevel(logging_level)
+        console_handler.setFormatter(log_format)
         logger.addHandler(console_handler)
     return logger
 

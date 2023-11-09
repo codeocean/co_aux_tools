@@ -1,6 +1,6 @@
 import typer
 
-from .co_utils import get_cpu_limit
+from co_tools.co_utils import get_cpu_limit
 
 app = typer.Typer()
 

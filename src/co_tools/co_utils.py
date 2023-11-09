@@ -6,7 +6,7 @@ from pathlib import Path
 LOG_LEVELS = ["debug", "info", "warning", "error", "critical"]
 
 if os.environ.get("CO_LOG_LEVEL", "false").lower() in LOG_LEVELS:
-    from .get_logger import LOGGER as log
+    from co_tools.get_logger import LOGGER as log
 else:
     import logging
 

@@ -4,7 +4,7 @@ from glob import glob
 from pathlib import Path, PurePath
 
 if os.environ.get("CO_LOG", "false").lower() == "true":
-    from .get_logger import LOGGER as log
+    from co_tools.get_logger import LOGGER as log
 else:
     import logging
 

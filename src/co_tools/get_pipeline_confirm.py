@@ -1,6 +1,6 @@
 import typer
 
-from .co_utils import is_pipeline
+from co_tools.co_utils import is_pipeline
 
 app = typer.Typer()
 
